@@ -21,6 +21,7 @@ int main(void) {
 
    Liste *liste = initialiser();
    Liste *liste2 = initialiser();
+   longueur(liste);
    printf("Est-ce que la liste est vide : %d \n", estVide(liste));
 
    for(int i = 0; i < 5; ++i){

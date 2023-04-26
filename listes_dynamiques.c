@@ -59,21 +59,24 @@ size_t longueur(const Liste* liste) {
 // En mode FORWARD, resp. BACKWARD, l'affichage se fait en parcourant liste
 // dans le sens tete -> queue, resp. queue -> tete.
 void afficher(const Liste* liste, Mode mode) {
-Element* courant = mode == FORWARD ? liste->tete : liste->queue;
-   for(size_t i = 0; i < longueur(liste); i++) {
-      printf("%d ", courant->info);
-      switch (mode) {
-         case FORWARD :
-            courant = courant->suivant;
-            break;
-         case BACKWARD :
-            courant = courant->precedent;
-            break;
-         default:
-            break;
-      }
+    printf("[");
+    if(!estVide(liste)){
+    Element* courant = mode == FORWARD ? liste->tete : liste->queue;
+       for(size_t i = 0; i < longueur(liste); i++) {
+          printf("%d ", courant->info);
+          switch (mode) {
+             case FORWARD :
+                courant = courant->suivant;
+                break;
+             case BACKWARD :
+                courant = courant->precedent;
+                break;
+             default:
+                break;
+          }
+       }
    }
-   printf("\n");
+   printf("]\n");
 }
 
 // ------------------------------------------------------------------------------
@@ -169,6 +172,9 @@ void supprimerSelonCritere(Liste* liste,
 void vider(Liste* liste, size_t position) {
 
     Element* courant = liste->tete;
+    if(position == 0){
+       liste->tete = NULL;
+    }
     for(size_t i = 0; i < position; i++){
         courant = courant->suivant;
     }
