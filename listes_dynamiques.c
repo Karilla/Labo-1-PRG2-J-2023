@@ -125,7 +125,13 @@ Status insererEnQueue(Liste* liste, const Info* info) {
 // puis supprime, en restituant la mémoire allouée, ledit élément.
 // Renvoie LISTE_VIDE si la liste passée en paramètre est vide, OK sinon.
 Status supprimerEnTete(Liste* liste, Info* info){
-
+   if(estVide(liste)){
+      return LISTE_VIDE;
+   }
+   *info = liste->tete->info;
+   liste->tete->suivant->precedent = NULL;
+   liste->tete = liste->tete->suivant;
+   return OK;
 }
 // ------------------------------------------------------------------------------
 
