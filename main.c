@@ -31,7 +31,9 @@ int main(void) {
 
    afficher(liste, FORWARD);
    afficher(liste, BACKWARD);
-
+    vider(liste, 0);
+    printf("Vider\n");
+    afficher(liste, FORWARD);
    // ATTENTION insererEnQueue fait un segfault -> a checker
    /*for(int i = 0; i < 5; ++i){
       insererEnQueue(liste2, &i);
@@ -39,7 +41,7 @@ int main(void) {
    afficher(liste2, FORWARD);*/
 
    // Test supprimerEnTete
-
+    /*
    Info info = 0;
    Info* ptr = &info;
    supprimerEnTete(liste, ptr);
@@ -52,6 +54,6 @@ int main(void) {
    supprimerEnQueue(liste, ptr);
    afficher(liste, FORWARD);
    printf("L'info contenue dans le dernier maillon etait: %d\n", *ptr);
-
+    */
    return EXIT_SUCCESS;
 }

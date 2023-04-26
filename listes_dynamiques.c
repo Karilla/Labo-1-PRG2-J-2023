@@ -166,8 +166,18 @@ void supprimerSelonCritere(Liste* liste,
 // Supprime, en restituant la mémoire allouée, tous les éléments de la liste
 // à partir de la position position
 // N.B. Vider à partir de la position 0 signifie vider toute la liste.
-void vider(Liste* liste, size_t position){
+void vider(Liste* liste, size_t position) {
 
+    Element* courant = liste->tete;
+    for(size_t i = 0; i < position; i++){
+        courant = courant->suivant;
+    }
+    Element* temp;
+    while (courant != NULL){
+        temp = courant->suivant;
+        free(courant);
+        courant = temp;
+    }
 }
 // ------------------------------------------------------------------------------
 
