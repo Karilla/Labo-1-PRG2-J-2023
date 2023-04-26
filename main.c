@@ -38,13 +38,19 @@ int main(void) {
    }
    afficher(liste2, FORWARD);*/
 
+   // Test supprimerEnTete
    Info info = 0;
    Info* ptr = &info;
    supprimerEnTete(liste, ptr);
-
+   printf("On enleve le premier element de la liste:\n");
    afficher(liste, FORWARD);
-   printf("L'info contenue dans le premier maillon etait %d", *ptr);
+   printf("L'info contenue dans le premier maillon etait: %d\n", *ptr);
 
+   // Test supprimerEnQueue
+   printf("On enleve le dernier element de la liste:\n");
+   supprimerEnQueue(liste, ptr);
+   afficher(liste, FORWARD);
+   printf("L'info contenue dans le dernier maillon etait: %d\n", *ptr);
 
    return EXIT_SUCCESS;
 }

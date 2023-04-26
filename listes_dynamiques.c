@@ -140,7 +140,13 @@ Status supprimerEnTete(Liste* liste, Info* info){
 // puis supprime, en restituant la mémoire allouée, ledit élément.
 // Renvoie LISTE_VIDE si la liste passée en paramètre est vide, OK sinon.
 Status supprimerEnQueue(Liste* liste, Info* info){
-
+   if(estVide(liste)){
+      return LISTE_VIDE;
+   }
+   *info = liste->queue->info;
+   liste->queue->precedent->suivant = NULL;
+   liste->queue = liste->queue->precedent;
+   return OK;
 }
 // ------------------------------------------------------------------------------
 
