@@ -36,6 +36,7 @@ bool estVide(const Liste* liste) {
 }
 // ------------------------------------------------------------------------------
 
+
 // ------------------------------------------------------------------------------
 // Renvoie combien il y a d'éléments dans liste.
 size_t longueur(const Liste* liste) {

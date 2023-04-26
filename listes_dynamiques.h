@@ -1,8 +1,8 @@
 /*
  -----------------------------------------------------------------------------------
  Nom du fichier : listes_dynamiques.h
- Auteur(s)      :
- Date creation  : 26.04.2023
+ Auteur(s)      : René Rentsch
+ Date creation  : 18.04.2023
 
  Description    : Librairie permettant la gestion de listes doublement chaînées
                   non circulaires

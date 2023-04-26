@@ -39,6 +39,7 @@ int main(void) {
    afficher(liste2, FORWARD);*/
 
    // Test supprimerEnTete
+
    Info info = 0;
    Info* ptr = &info;
    supprimerEnTete(liste, ptr);
