@@ -63,7 +63,7 @@ void afficher(const Liste *liste, Mode mode) {
 	if (!estVide(liste)) {
 		Element *courant = mode == FORWARD ? liste->tete : liste->queue;
 		for (size_t i = 0; i < longueur(liste); i++) {
-			printf("%d ", courant->info);
+			printf("%d", courant->info);
 			switch (mode) {
 				case FORWARD :
 					courant = courant->suivant;
@@ -74,6 +74,9 @@ void afficher(const Liste *liste, Mode mode) {
 				default:
 					break;
 			}
+         if(i != longueur(liste) - 1){
+            printf(",");
+         }
 		}
 	}
 	printf("]\n");
