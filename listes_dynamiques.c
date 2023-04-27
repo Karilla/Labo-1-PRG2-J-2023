@@ -74,9 +74,9 @@ void afficher(const Liste *liste, Mode mode) {
 				default:
 					break;
 			}
-         if(i != longueur(liste) - 1){
-            printf(",");
-         }
+			if (i != longueur(liste) - 1) {
+				printf(",");
+			}
 		}
 	}
 	printf("]\n");
@@ -165,8 +165,9 @@ void supprimerSelonCritere(Liste *liste,
 									bool (*critere)(size_t position, const Info *info)) {
 	Element *courant = liste->tete;
 	Element *suivant;
-	for (size_t i = 0; i < longueur(liste); i++) {
-		if (critere(i, (const Info *) &(courant->info))) {
+	size_t indice = 0;
+	while (courant != NULL) {
+		if (critere(indice, (const Info *) &(courant->info))) {
 
 			if (courant->precedent == NULL) {
 				supprimerEnTete(liste, &(courant->info));
@@ -187,7 +188,9 @@ void supprimerSelonCritere(Liste *liste,
 		} else {
 			courant = courant->suivant;
 		}
+		++indice;
 	}
+
 }
 // ------------------------------------------------------------------------------
 
