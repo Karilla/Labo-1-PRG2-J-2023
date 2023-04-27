@@ -17,13 +17,14 @@
 #include <stdlib.h>
 #include "listes_dynamiques.h"
 
-bool impairOuindex(size_t i, Info* info){
-	if(i % 2 == 0){
+bool impairOuindex(size_t i, Info *info) {
+	if (i % 2 == 0) {
 		return false;
-	}else{
+	} else {
 		return true;
 	}
 }
+
 int main(void) {
 
 	Liste *liste = initialiser();
@@ -63,9 +64,29 @@ int main(void) {
   afficher(liste, FORWARD);
   printf("L'info contenue dans le dernier maillon etait: %d\n", *ptr);
 */
-	 //Test supprimerSelonCritere
+	//Test supprimerSelonCritere
 	supprimerSelonCritere(liste, (bool (*)(size_t, const Info *)) impairOuindex);
 	afficher(liste, FORWARD);
-   return EXIT_SUCCESS;
+	Liste *liste3 = initialiser();
+	Liste *liste4 = initialiser();
+	Liste *liste5 = initialiser();
+	for (int i = 0; i < 5; ++i) {
+		insererEnTete(liste3, &i);
+	}
+	for (int i = 0; i < 5; ++i) {
+		insererEnTete(liste4, &i);
+	}
+	printf("Les listes sont égales : %d\n", sontEgales(liste3, liste4));
+	for (int i = 5; i >= 0; --i) {
+		insererEnTete(liste5, &i);
+	}
+	printf("Les listes sont égales : %d\n", sontEgales(liste3, liste5));
+	Liste *liste6 = initialiser();
+	for (int i = 0; i < 4; ++i) {
+		insererEnTete(liste6, &i);
+	}
+
+	printf("Les listes sont égales : %d\n", sontEgales(liste3, liste6));
+	return EXIT_SUCCESS;
 
 }

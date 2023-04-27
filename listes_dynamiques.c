@@ -215,6 +215,17 @@ void vider(Liste *liste, size_t position) {
 // apparaissant dans le même ordre), false sinon.
 // N.B. 2 listes vides sont considérées comme égales.
 bool sontEgales(const Liste *liste1, const Liste *liste2) {
-
-	return 0;
+	if (liste1 == NULL || liste2 == NULL || longueur(liste1) != longueur(liste2)) {
+		return false;
+	}
+	Element *courant1 = liste1->tete;
+	Element *courant2 = liste2->tete;
+	while (courant1 != NULL) {
+		if (courant1->info != courant2->info) {
+			return false;
+		}
+		courant1 = courant1->suivant;
+		courant2 = courant2->suivant;
+	}
+	return true;
 }
