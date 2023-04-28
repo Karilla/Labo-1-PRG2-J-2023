@@ -18,17 +18,22 @@
 #include "listes_dynamiques.h"
 
 bool impairOuindex(size_t i, Info *info) {
-	if (i % 2 == 0) {
+	if (i % 2 == 0 || (*info > 1 && *info < 4)) {
 		return false;
 	} else {
 		return true;
 	}
 }
 
+void remplirListe(Liste *liste, int taille) {
+	for (int i = 0; i < taille; ++i) {
+		insererEnTete(liste, &i);
+	}
+}
+
 int main(void) {
 
 	Liste *liste = initialiser();
-	Liste *liste2 = initialiser();
 	longueur(liste);
 	printf("Est-ce que la liste est vide : %d \n", estVide(liste));
 
