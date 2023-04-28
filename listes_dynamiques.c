@@ -142,8 +142,17 @@ Status supprimerEnTete(Liste *liste, Info *info) {
 		return LISTE_VIDE;
 	}
 	*info = liste->tete->info;
-	liste->tete->suivant->precedent = NULL;
+	Element* temp = liste->tete;
+
+	// s'il n'y a qu'un seul élément
+	if(liste->tete->suivant == NULL) {
+		liste->queue = NULL; // on met la queue à NULL
+	} else { // sinon on met le précédent de l'élément suivant à NULL
+		liste->tete->suivant->precedent = NULL;
+
+	}
 	liste->tete = liste->tete->suivant;
+	free(temp);
 	return OK;
 }
 // ------------------------------------------------------------------------------
@@ -156,9 +165,17 @@ Status supprimerEnQueue(Liste *liste, Info *info) {
 	if (estVide(liste)) {
 		return LISTE_VIDE;
 	}
-	*info = liste->queue->info;
-	liste->queue->precedent->suivant = NULL;
+	Element* temp = liste->queue;
+
+	// s'il n'y a qu'un seul élément
+	if(liste->queue->precedent == NULL){
+		liste->tete = NULL; // on met la tête à NULL
+	} else { // sinon, on met le suivant de l'élément précédent à NULL
+		liste->queue->precedent->suivant = NULL;
+	}
 	liste->queue = liste->queue->precedent;
+	free(temp);
+
 	return OK;
 }
 // ------------------------------------------------------------------------------
@@ -207,19 +224,16 @@ void supprimerSelonCritere(Liste *liste,
 // N.B. Vider à partir de la position 0 signifie vider toute la liste.
 void vider(Liste *liste, size_t position) {
 
-	Element *courant = liste->tete;
-	if (position == 0) {
-		liste->tete = NULL;
+	size_t taille = longueur(liste);
+	if (taille <= position) {
+		return;
 	}
-	for (size_t i = 0; i < position; i++) {
-		courant = courant->suivant;
+
+	Info info = 0;
+	for(size_t i = 0; i < taille-position; i++){
+		supprimerEnQueue(liste, &info);
 	}
-	Element *temp;
-	while (courant != NULL) {
-		temp = courant->suivant;
-		free(courant);
-		courant = temp;
-	}
+
 }
 // ------------------------------------------------------------------------------
 

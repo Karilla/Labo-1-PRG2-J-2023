@@ -18,10 +18,10 @@
 #include "listes_dynamiques.h"
 
 bool impairOuindex(size_t i, Info *info) {
-	if (i % 2 == 0 || (*info > 1 && *info < 4)) {
-		return false;
-	} else {
+	if (i % 2 == 1 || (*info > 1 && *info < 4)) {
 		return true;
+	} else {
+		return false;
 	}
 }
 
@@ -51,7 +51,7 @@ int main(void) {
 	afficher(liste, FORWARD); */
 	// ATTENTION insererEnQueue fait un segfault -> a checker
 	for(int i = 0; i < 5; ++i){
-		insererEnQueue(liste, &i);
+		insererEnTete(liste, &i);
 	}
 	afficher(liste, FORWARD);
 
@@ -94,8 +94,18 @@ int main(void) {
 
 	printf("Les listes sont égales : %d\n", sontEgales(liste3, liste6));
 	*/
+	//supprimerSelonCritere(liste, (bool (*)(size_t, const Info *)) impairOuindex);
+	Info info = 0;
+	Liste* liste2 = initialiser();
+	insererEnTete(liste2, &info);
+	supprimerEnQueue(liste2, &info);
+	afficher(liste2, FORWARD);
+	vider(liste, 1);
+	afficher(liste, FORWARD);
 	vider(liste, 0);
+	vider(liste2, 0);
 	free(liste);
+	free(liste2);
 	return EXIT_SUCCESS;
 
 }
