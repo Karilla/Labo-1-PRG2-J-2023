@@ -34,7 +34,8 @@ void remplirListe(Liste *liste, int taille) {
 int main(void) {
 
 	Liste *liste = initialiser();
-	longueur(liste);
+
+	/* longueur(liste);
 	printf("Est-ce que la liste est vide : %d \n", estVide(liste));
 
 	for (int i = 0; i < 5; ++i) {
@@ -47,12 +48,12 @@ int main(void) {
 	afficher(liste, BACKWARD);
 	//vider(liste, 0);
 	printf("Vider\n");
-	afficher(liste, FORWARD);
+	afficher(liste, FORWARD); */
 	// ATTENTION insererEnQueue fait un segfault -> a checker
-	/*for(int i = 0; i < 5; ++i){
-		insererEnQueue(liste2, &i);
+	for(int i = 0; i < 5; ++i){
+		insererEnQueue(liste, &i);
 	}
-	afficher(liste2, FORWARD);*/
+	afficher(liste, FORWARD);
 
 	// Test supprimerEnTete
 /*
@@ -70,7 +71,7 @@ int main(void) {
   printf("L'info contenue dans le dernier maillon etait: %d\n", *ptr);
 */
 	//Test supprimerSelonCritere
-	supprimerSelonCritere(liste, (bool (*)(size_t, const Info *)) impairOuindex);
+	/*supprimerSelonCritere(liste, (bool (*)(size_t, const Info *)) impairOuindex);
 	afficher(liste, FORWARD);
 	Liste *liste3 = initialiser();
 	Liste *liste4 = initialiser();
@@ -92,6 +93,9 @@ int main(void) {
 	}
 
 	printf("Les listes sont égales : %d\n", sontEgales(liste3, liste6));
+	*/
+	vider(liste, 0);
+	free(liste);
 	return EXIT_SUCCESS;
 
 }

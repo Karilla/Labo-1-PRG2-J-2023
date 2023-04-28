@@ -119,7 +119,13 @@ Status insererEnQueue(Liste *liste, const Info *info) {
 	}
 	nouvelElement->info = *info;
 	nouvelElement->suivant = NULL;
-	liste->queue->suivant = nouvelElement;
+	if (!estVide(liste)) {
+		liste->queue->suivant = nouvelElement;
+
+	} else {
+		liste->tete = nouvelElement;
+	}
+
 	nouvelElement->precedent = liste->queue;
 	liste->queue = nouvelElement;
 	return OK;
