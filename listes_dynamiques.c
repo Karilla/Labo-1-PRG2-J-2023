@@ -165,6 +165,7 @@ Status supprimerEnQueue(Liste *liste, Info *info) {
 	if (estVide(liste)) {
 		return LISTE_VIDE;
 	}
+   *info = liste->queue->info;
 	Element* temp = liste->queue;
 
 	// s'il n'y a qu'un seul élément
