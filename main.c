@@ -39,6 +39,7 @@ int main(void) {
    testsReussis &= testInitialiser();
    // testsReussis &= testInsererEnTete();
    testsReussis &= testEstVide();
+   testsReussis &= testLongueur();
 
    if(testsReussis){
       printf("Tous les tests passent.");

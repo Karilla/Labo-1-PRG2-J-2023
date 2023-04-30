@@ -43,12 +43,33 @@ bool testEstVide(void){
          testReussi = false;
       }
    }
+   vider(liste, 0);
    free(liste);
    return testReussi;
 }
 
+// le test d'inserererEnTete doit être fait avant celui de longueur car on utilise insererEnTete dans cette fct
 bool testLongueur(void){
-
+   Liste* liste = initialiser();
+   bool testReussi = true;
+   if(longueur(liste) != 0){ // on vérifie que la longueur d'une liste vide est 0
+      testReussi = false;
+   } else {
+      Info infoPremierElement = 1;
+      insererEnTete(liste, &infoPremierElement);
+      if(longueur(liste) != 1){ // on vérifie que la longueur d'une liste de 1 élément est 1
+         testReussi = false;
+      } else {
+         Info infoDeuxiemeElement = 2;
+         insererEnTete(liste, &infoDeuxiemeElement);
+         if(longueur(liste) != 2){ // on vérifie que la longueur d'une liste de 2 éléments est 2 (cas général)
+            testReussi = false;
+         }
+      }
+   }
+   vider(liste, 0);
+   free(liste);
+   return testReussi;
 }
 
 bool testAfficher(void){
