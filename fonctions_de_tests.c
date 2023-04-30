@@ -19,8 +19,13 @@
 #include <stdio.h>
 #include <assert.h>
 
+// trouver un truc pour vérifier en cas de mémoire insuffisante
 bool testInitialiser(void){
-
+   Liste* liste = initialiser();
+   if(liste->queue == NULL && liste->tete == NULL){
+      return true;
+   }
+   return false;
 }
 
 bool testEstVide(void){

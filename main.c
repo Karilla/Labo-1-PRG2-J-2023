@@ -16,6 +16,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "listes_dynamiques.h"
+#include "fonctions_de_tests.h"
 
 bool impairOuindex(size_t i, Info *info) {
 	if (i % 2 == 1 || (*info > 1 && *info < 4)) {
@@ -33,9 +34,19 @@ void remplirListe(Liste *liste, int taille) {
 
 int main(void) {
 
-	Liste *liste = initialiser();
+   bool testsReussis = true;
 
-	/* longueur(liste);
+   testsReussis &= testInitialiser();
+
+   if(testsReussis){
+      printf("Tous les tests passent.");
+   } else {
+      printf("Tous les tests ne passent pas.");
+   }
+
+	/*Liste *liste = initialiser();
+
+	longueur(liste);
 	printf("Est-ce que la liste est vide : %d \n", estVide(liste));
 
 	for (int i = 0; i < 5; ++i) {
@@ -48,7 +59,7 @@ int main(void) {
 	afficher(liste, BACKWARD);
 	//vider(liste, 0);
 	printf("Vider\n");
-	afficher(liste, FORWARD); */
+	afficher(liste, FORWARD);
 	// ATTENTION insererEnQueue fait un segfault -> a checker
 	for(int i = 0; i < 5; ++i){
 		insererEnTete(liste, &i);
@@ -93,7 +104,7 @@ int main(void) {
 	}
 
 	printf("Les listes sont égales : %d\n", sontEgales(liste3, liste6));
-	*/
+
 	//supprimerSelonCritere(liste, (bool (*)(size_t, const Info *)) impairOuindex);
 	Info info = 0;
 	Liste* liste2 = initialiser();
@@ -106,6 +117,7 @@ int main(void) {
 	vider(liste2, 0);
 	free(liste);
 	free(liste2);
+   */
 	return EXIT_SUCCESS;
 
 }
