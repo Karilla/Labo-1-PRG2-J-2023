@@ -13,6 +13,52 @@
 */
 
 #include "fonctions_de_tests.h"
+#include "listes_dynamiques.h"
+#include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>
+
+bool testInitialiser(void){
+
+}
+
+bool testEstVide(void){
+
+}
+
+bool testLongueur(void){
+
+}
+
+bool testAfficher(void){
+
+}
+
+bool testInsererEnTete(void){
+
+}
+
+bool testInsererEnQueue(void){
+
+}
+
+bool testSupprimerEnTete(void){
+
+}
+
+bool testSupprimerEnQueue(void){
+
+}
+
+bool testSupprimerSelonCritere(void){
+
+}
+
+bool testVider(void){
+
+}
+
+bool testSontEgales(void){
+
+}

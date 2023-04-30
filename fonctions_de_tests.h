@@ -16,5 +16,28 @@
 #define LABO_1_PRG2_J_2023_FONCTIONS_DE_TESTS_H
 
 #include <stdlib.h>
+#include <stdbool.h>
+
+bool testInitialiser(void);
+
+bool testEstVide(void);
+
+bool testLongueur(void);
+
+bool testAfficher(void);
+
+bool testInsererEnTete(void);
+
+bool testInsererEnQueue(void);
+
+bool testSupprimerEnTete(void);
+
+bool testSupprimerEnQueue(void);
+
+bool testSupprimerSelonCritere(void);
+
+bool testVider(void);
+
+bool testSontEgales(void);
 
 #endif //LABO_1_PRG2_J_2023_FONCTIONS_DE_TESTS_H
