@@ -1,6 +1,6 @@
 /*
  -----------------------------------------------------------------------------------
- Nom du fichier : main
+ Nom du fichier : main.c
  Auteur(s)      : <A compléter>
  Date creation  : 26.04.2023
 

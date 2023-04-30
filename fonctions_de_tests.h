@@ -1,6 +1,6 @@
 /*
  -----------------------------------------------------------------------------------
- Nom du fichier : main
+ Nom du fichier : fonctions_de_tests.h
  Auteur(s)      : <A compléter>
  Date creation  : 30.04.2023
 
