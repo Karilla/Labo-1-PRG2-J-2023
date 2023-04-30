@@ -23,13 +23,28 @@
 bool testInitialiser(void){
    Liste* liste = initialiser();
    if(liste->queue == NULL && liste->tete == NULL){
+      free(liste);
       return true;
    }
+   free(liste);
    return false;
 }
 
+// le test d'inserererEnTete doit être fait avant celui de estVide car on utilise insererEnTete dans cette fct
 bool testEstVide(void){
-
+   Liste* liste = initialiser();
+   if(!estVide(liste)){
+      free(liste);
+      return false;
+   }
+   Info info = 1;
+   insererEnTete(liste, &info);
+   if(estVide(liste)){
+      free(liste);
+      return false;
+   }
+   free(liste);
+   return true;
 }
 
 bool testLongueur(void){
