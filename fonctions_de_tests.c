@@ -33,18 +33,18 @@ bool testInitialiser(void){
 // le test d'inserererEnTete doit être fait avant celui de estVide car on utilise insererEnTete dans cette fct
 bool testEstVide(void){
    Liste* liste = initialiser();
-   if(!estVide(liste)){
-      free(liste);
-      return false;
-   }
-   Info info = 1;
-   insererEnTete(liste, &info);
-   if(estVide(liste)){
-      free(liste);
-      return false;
+   bool testReussi = true;
+   if(!estVide(liste)){ // on teste si une liste vide est bien vide
+      testReussi = false;
+   } else {
+      Info info = 1;
+      insererEnTete(liste, &info);
+      if (estVide(liste)) { // on teste si une liste non vide est bien non vide
+         testReussi = false;
+      }
    }
    free(liste);
-   return true;
+   return testReussi;
 }
 
 bool testLongueur(void){
