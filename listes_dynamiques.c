@@ -141,7 +141,10 @@ Status supprimerEnTete(Liste *liste, Info *info) {
 	if (estVide(liste)) {
 		return LISTE_VIDE;
 	}
-	*info = liste->tete->info;
+   if(info){
+      *info = liste->tete->info;
+   }
+
 	Element* temp = liste->tete;
 
 	// s'il n'y a qu'un seul élément
@@ -165,7 +168,10 @@ Status supprimerEnQueue(Liste *liste, Info *info) {
 	if (estVide(liste)) {
 		return LISTE_VIDE;
 	}
-   *info = liste->queue->info;
+   if(info){
+      *info = liste->queue->info;
+   }
+
 	Element* temp = liste->queue;
 
 	// s'il n'y a qu'un seul élément
@@ -232,7 +238,7 @@ void vider(Liste *liste, size_t position) {
 
 	Info info = 0;
 	for(size_t i = 0; i < taille-position; i++){
-		supprimerEnQueue(liste, &info);
+		supprimerEnQueue(liste, NULL);
 	}
 
 }
