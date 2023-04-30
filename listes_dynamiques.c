@@ -141,7 +141,10 @@ Status supprimerEnTete(Liste *liste, Info *info) {
 	if (estVide(liste)) {
 		return LISTE_VIDE;
 	}
-	*info = liste->tete->info;
+   if(info){
+      *info = liste->tete->info;
+   }
+
 	Element* temp = liste->tete;
 
 	// s'il n'y a qu'un seul élément
