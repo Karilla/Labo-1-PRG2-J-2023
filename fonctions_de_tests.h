@@ -21,6 +21,8 @@
 
 void remplirListe(Liste *liste, int taille);
 
+bool valeurEtPositionPaires(size_t position, const Info *info);
+
 void testInitialiser(void);
 
 void testEstVide(void);

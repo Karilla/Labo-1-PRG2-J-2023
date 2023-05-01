@@ -18,12 +18,21 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>
+#include <string.h>
 
 void remplirListe(Liste *liste, int taille) {
    for (int i = 0; i < taille; ++i) {
       insererEnTete(liste, &i);
    }
 }
+
+bool valeurEtPositionPaires(size_t position, const Info *info) {
+   if (((*info % 2) == 1) || ((position % 2) == 1)) {
+      return false;
+   }
+   return true;
+}
+
 
 // trouver un truc pour vérifier en cas de mémoire insuffisante
 void testInitialiser(void){
@@ -58,7 +67,13 @@ void testLongueur(void){
 }
 
 void testAfficher(void){
-
+   Liste* liste = initialiser();
+   remplirListe(liste, 3);
+   char* buffer;
+   const char* affichageAttendu = "[0,1,2]";
+   assert(strcmp(buffer, affichageAttendu));
+   vider(liste,0);
+   free(liste);
 }
 
 void testInsererEnTete(void){
@@ -119,7 +134,18 @@ void testSupprimerEnQueue(void){
 }
 
 void testSupprimerSelonCritere(void){
-
+   Liste* liste = initialiser();
+   remplirListe(liste, 5); // [4,3,2,1,0]
+   Liste* listeAttendue = initialiser();
+   const Info infoListeAttendue[] = {3,1};
+   insererEnQueue(listeAttendue, &infoListeAttendue[0]);
+   insererEnQueue(listeAttendue, &infoListeAttendue[1]); // [3,1]
+   supprimerSelonCritere(liste, valeurEtPositionPaires);
+   assert(sontEgales(listeAttendue, liste));
+   vider(listeAttendue, 0);
+   free(listeAttendue);
+   vider(liste, 0);
+   free(liste);
 }
 
 // j'utilise pas estVide car testEstVide utilise Vider
