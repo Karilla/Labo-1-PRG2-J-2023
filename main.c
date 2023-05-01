@@ -17,6 +17,7 @@
 #include <stdlib.h>
 #include "listes_dynamiques.h"
 #include "fonctions_de_tests.h"
+#include <assert.h>
 
 bool impairOuindex(size_t i, Info *info) {
 	if (i % 2 == 1 || (*info > 1 && *info < 4)) {
@@ -42,7 +43,7 @@ int main(void) {
    testSupprimerEnTete();
    testSupprimerEnQueue();
    testLongueur();
-
+   assert(testSontEgales());
    printf("Tous les tests passent.");
 
 
