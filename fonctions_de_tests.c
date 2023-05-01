@@ -133,6 +133,48 @@ void testVider(void){
    free(listeVide);
 }
 
-void testSontEgales(void){
+bool testSontEgales(void){
+   bool testOk = true;
+   Liste* liste1 = initialiser();
+   Liste* liste2 = initialiser();
 
+   //Test si les 2 listes sont vides la fonction nous renvoie true
+   if(sontEgales(liste1,liste2) != true){
+      testOk = false;
+   }
+
+   //Test si la liste 1 est plus grande que la 2 renvoie false
+   Info valeur = 10;
+   insererEnTete(liste1, &valeur);
+   if(sontEgales(liste1, liste2) != false){
+      testOk = false;
+   }
+
+   //Test si la liste 1 et la liste 2 sont egales et renvoie true
+   insererEnTete(liste2, &valeur);
+   if(sontEgales(liste1, liste2) != true){
+      testOk = false;
+   }
+
+   //Test quand liste 1 et liste 2 ont la meme taille mai pas les meme elements
+   supprimerEnQueue(liste2, NULL);
+   valeur = 20;
+   insererEnTete(liste2,&valeur);
+   if(sontEgales(liste1, liste2) != false){
+
+      testOk = false;
+   }
+
+   //Test quand la liste 2 est plus grande que la liste 1 renvoie false
+   insererEnTete(liste2, &valeur);
+   if(sontEgales(liste1, liste2) != false){
+      testOk = false;
+   }
+
+   vider(liste1,0);
+   vider(liste2, 0);
+
+   free(liste2);
+   free(liste1);
+   return testOk;
 }

@@ -41,6 +41,6 @@ void testSupprimerSelonCritere(void);
 
 void testVider(void);
 
-void testSontEgales(void);
+bool testSontEgales(void);
 
 #endif //LABO_1_PRG2_J_2023_FONCTIONS_DE_TESTS_H
