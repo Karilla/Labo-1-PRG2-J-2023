@@ -20,6 +20,10 @@
 #include <assert.h>
 #include <string.h>
 
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_GREEN   "\x1b[32m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
+
 void remplirListe(Liste *liste, int taille) {
    for (int i = 0; i < taille; ++i) {
       insererEnTete(liste, &i);
@@ -160,41 +164,63 @@ void testVider(void){
 }
 
 bool testSontEgales(void){
+   printf("Fonction de test pour la fonction sontEgales....\n");
    bool testOk = true;
    Liste* liste1 = initialiser();
    Liste* liste2 = initialiser();
 
+   printf("Test quand les 2 listes sont vides: ");
    //Test si les 2 listes sont vides la fonction nous renvoie true
    if(sontEgales(liste1,liste2) != true){
+      printf(ANSI_COLOR_RED"echec\n"ANSI_COLOR_RESET);
       testOk = false;
    }
+   else{
+      printf(ANSI_COLOR_GREEN"reussite\n"ANSI_COLOR_RESET);
+   }
+
 
    //Test si la liste 1 est plus grande que la 2 renvoie false
+   printf("Test quand la liste 1 est plus grande que la liste 2: ");
    Info valeur = 10;
    insererEnTete(liste1, &valeur);
    if(sontEgales(liste1, liste2) != false){
+      printf(ANSI_COLOR_RED"echec\n"ANSI_COLOR_RESET);
       testOk = false;
+   }else{
+      printf(ANSI_COLOR_GREEN"reussite\n"ANSI_COLOR_RESET);
    }
 
    //Test si la liste 1 et la liste 2 sont egales et renvoie true
+   printf("Test quand les 2 listes sont bien egales: ");
    insererEnTete(liste2, &valeur);
    if(sontEgales(liste1, liste2) != true){
+      printf(ANSI_COLOR_RED"echec\n"ANSI_COLOR_RESET);
       testOk = false;
+   }else{
+      printf(ANSI_COLOR_GREEN"reussite\n"ANSI_COLOR_RESET);
    }
 
-   //Test quand liste 1 et liste 2 ont la meme taille mai pas les meme elements
+   //Test quand liste 1 et liste 2 ont la meme taille mais pas les meme elements
+   printf("Test quand les 2 listes ont la meme taille mais pas les memes elements: ");
    supprimerEnQueue(liste2, NULL);
    valeur = 20;
    insererEnTete(liste2,&valeur);
    if(sontEgales(liste1, liste2) != false){
-
+      printf(ANSI_COLOR_RED"echec\n"ANSI_COLOR_RESET);
       testOk = false;
+   }else{
+      printf(ANSI_COLOR_GREEN"reussite\n"ANSI_COLOR_RESET);
    }
 
    //Test quand la liste 2 est plus grande que la liste 1 renvoie false
+   printf("Test quand la liste 2 est plus grande que la liste 1: ");
    insererEnTete(liste2, &valeur);
    if(sontEgales(liste1, liste2) != false){
+      printf(ANSI_COLOR_RED"echec\n"ANSI_COLOR_RESET);
       testOk = false;
+   }else{
+      printf(ANSI_COLOR_GREEN"success\n"ANSI_COLOR_RESET);
    }
 
    vider(liste1,0);
