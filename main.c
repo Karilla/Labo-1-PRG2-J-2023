@@ -44,6 +44,8 @@ int main(void) {
    testVider();
    testInsererEnTete();
    testInsererEnQueue();
+   testSupprimerEnTete();
+   testSupprimerEnQueue();
 
    if(testsReussis){
       printf("Tous les tests passent.");

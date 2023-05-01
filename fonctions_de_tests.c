@@ -94,26 +94,56 @@ void testInsererEnTete(void){
 void testInsererEnQueue(void){
    Liste* liste = initialiser();
    Info info = 1;
-   insererEnTete(liste, &info);
+   insererEnQueue(liste, &info);
    assert(liste->queue->info == info);
    vider(liste, 0);
    free(liste);
 }
 
 // tester insererEnTete avant
-bool testSupprimerEnTete(void){
-
-
+void testSupprimerEnTete(void){
+   Liste* liste = initialiser();
+   Info infoPremierElement = 1;
+   Info infoDeuxiemeElement = 2;
+   Info infoRetour;
+   assert(supprimerEnTete(liste, NULL) == LISTE_VIDE); // on vérifie le cas d'une liste vide
+   insererEnTete(liste, &infoPremierElement);
+   supprimerEnTete(liste, &infoRetour);
+   assert(estVide(liste)); // on vérifie pour une liste de 1 élément
+   assert(infoPremierElement == infoRetour);
+   insererEnTete(liste, &infoPremierElement);
+   insererEnTete(liste, &infoDeuxiemeElement);
+   supprimerEnTete(liste, &infoRetour);
+   assert(liste->tete->info == infoPremierElement); // on vérifie pour une liste de 2 éléments (cas général)
+   assert(infoDeuxiemeElement == infoRetour);
+   vider(liste, 0);
+   free(liste);
 }
 
-bool testSupprimerEnQueue(void){
-
+void testSupprimerEnQueue(void){
+   Liste* liste = initialiser();
+   Info infoPremierElement = 1;
+   Info infoDeuxiemeElement = 2;
+   Info infoRetour;
+   assert(supprimerEnQueue(liste, NULL) == LISTE_VIDE); // on vérifie le cas d'une liste vide
+   insererEnTete(liste, &infoPremierElement);
+   supprimerEnQueue(liste, &infoRetour);
+   assert(estVide(liste)); // on vérifie pour une liste de 1 élément
+   assert(infoPremierElement == infoRetour);
+   insererEnTete(liste, &infoPremierElement);
+   insererEnTete(liste, &infoDeuxiemeElement);
+   supprimerEnQueue(liste, &infoRetour);
+   assert(liste->queue->info == infoDeuxiemeElement); // on vérifie pour une liste de 2 éléments (cas général)
+   assert(infoPremierElement == infoRetour);
+   vider(liste, 0);
+   free(liste);
 }
 
 bool testSupprimerSelonCritere(void){
 
 }
 
+// j'utilise pas estVide car testEstVide utilise Vider
 void testVider(void){
    Liste* liste = initialiser();
    Liste* listeVide = initialiser();
