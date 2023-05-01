@@ -19,6 +19,12 @@
 #include <stdio.h>
 #include <assert.h>
 
+void remplirListe(Liste *liste, int taille) {
+   for (int i = 0; i < taille; ++i) {
+      insererEnTete(liste, &i);
+   }
+}
+
 // trouver un truc pour vérifier en cas de mémoire insuffisante
 bool testInitialiser(void){
    Liste* liste = initialiser();
@@ -96,8 +102,14 @@ bool testSupprimerSelonCritere(void){
 
 }
 
-bool testVider(void){
-
+void testVider(void){
+   Liste* liste = initialiser();
+   Liste* listeVide = initialiser();
+   remplirListe(liste, 5);
+   vider(liste, 0);
+   assert(sontEgales(liste, listeVide));
+   free(liste);
+   free(listeVide);
 }
 
 bool testSontEgales(void){

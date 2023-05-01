@@ -26,11 +26,11 @@ bool impairOuindex(size_t i, Info *info) {
 	}
 }
 
-void remplirListe(Liste *liste, int taille) {
+/*void remplirListe(Liste *liste, int taille) {
 	for (int i = 0; i < taille; ++i) {
 		insererEnTete(liste, &i);
 	}
-}
+}*/
 
 int main(void) {
 
@@ -40,6 +40,8 @@ int main(void) {
    // testsReussis &= testInsererEnTete();
    testsReussis &= testEstVide();
    testsReussis &= testLongueur();
+
+   testVider();
 
    if(testsReussis){
       printf("Tous les tests passent.");
