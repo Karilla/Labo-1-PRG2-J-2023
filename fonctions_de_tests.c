@@ -26,59 +26,38 @@ void remplirListe(Liste *liste, int taille) {
 }
 
 // trouver un truc pour vérifier en cas de mémoire insuffisante
-bool testInitialiser(void){
+void testInitialiser(void){
    Liste* liste = initialiser();
-   if(liste->queue == NULL && liste->tete == NULL){
-      free(liste);
-      return true;
-   }
+   assert(liste->queue == NULL && liste->tete == NULL);
    free(liste);
-   return false;
 }
 
 // le test d'inserererEnTete doit être fait avant celui de estVide car on utilise insererEnTete dans cette fct
-bool testEstVide(void){
+void testEstVide(void){
    Liste* liste = initialiser();
-   bool testReussi = true;
-   if(!estVide(liste)){ // on teste si une liste vide est bien vide
-      testReussi = false;
-   } else {
-      Info info = 1;
-      insererEnTete(liste, &info);
-      if (estVide(liste)) { // on teste si une liste non vide est bien non vide
-         testReussi = false;
-      }
-   }
+   assert(estVide(liste)); // on teste si une liste vide est bien vide
+   Info info = 1;
+   insererEnTete(liste, &info);
+   assert(!estVide(liste)); // on teste si une liste non vide est bien non vide
    vider(liste, 0);
    free(liste);
-   return testReussi;
 }
 
 // le test d'inserererEnTete doit être fait avant celui de longueur car on utilise insererEnTete dans cette fct
-bool testLongueur(void){
+void testLongueur(void){
    Liste* liste = initialiser();
-   bool testReussi = true;
-   if(longueur(liste) != 0){ // on vérifie que la longueur d'une liste vide est 0
-      testReussi = false;
-   } else {
-      Info infoPremierElement = 1;
-      insererEnTete(liste, &infoPremierElement);
-      if(longueur(liste) != 1){ // on vérifie que la longueur d'une liste de 1 élément est 1
-         testReussi = false;
-      } else {
-         Info infoDeuxiemeElement = 2;
-         insererEnTete(liste, &infoDeuxiemeElement);
-         if(longueur(liste) != 2){ // on vérifie que la longueur d'une liste de 2 éléments est 2 (cas général)
-            testReussi = false;
-         }
-      }
-   }
+   assert(longueur(liste) == 0); // on vérifie que la longueur d'une liste vide est 0
+   Info infoPremierElement = 1;
+   insererEnTete(liste, &infoPremierElement);
+   assert(longueur(liste) == 1); // on vérifie que la longueur d'une liste de 1 élément est 1
+   Info infoDeuxiemeElement = 2;
+   insererEnTete(liste, &infoDeuxiemeElement);
+   assert(longueur(liste) == 2); // on vérifie que la longueur d'une liste de 2 éléments est 2 (cas général)
    vider(liste, 0);
    free(liste);
-   return testReussi;
 }
 
-bool testAfficher(void){
+void testAfficher(void){
 
 }
 
@@ -139,7 +118,7 @@ void testSupprimerEnQueue(void){
    free(liste);
 }
 
-bool testSupprimerSelonCritere(void){
+void testSupprimerSelonCritere(void){
 
 }
 
@@ -154,6 +133,6 @@ void testVider(void){
    free(listeVide);
 }
 
-bool testSontEgales(void){
+void testSontEgales(void){
 
 }

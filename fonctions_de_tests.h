@@ -21,13 +21,13 @@
 
 void remplirListe(Liste *liste, int taille);
 
-bool testInitialiser(void);
+void testInitialiser(void);
 
-bool testEstVide(void);
+void testEstVide(void);
 
-bool testLongueur(void);
+void testLongueur(void);
 
-bool testAfficher(void);
+void testAfficher(void);
 
 void testInsererEnTete(void);
 
@@ -37,10 +37,10 @@ void testSupprimerEnTete(void);
 
 void testSupprimerEnQueue(void);
 
-bool testSupprimerSelonCritere(void);
+void testSupprimerSelonCritere(void);
 
 void testVider(void);
 
-bool testSontEgales(void);
+void testSontEgales(void);
 
 #endif //LABO_1_PRG2_J_2023_FONCTIONS_DE_TESTS_H

@@ -34,24 +34,17 @@ bool impairOuindex(size_t i, Info *info) {
 
 int main(void) {
 
-   bool testsReussis = true;
-
-   testsReussis &= testInitialiser();
-   // testsReussis &= testInsererEnTete();
-   testsReussis &= testEstVide();
-   testsReussis &= testLongueur();
-
+   testInitialiser();
    testVider();
    testInsererEnTete();
    testInsererEnQueue();
+   testEstVide();
    testSupprimerEnTete();
    testSupprimerEnQueue();
+   testLongueur();
 
-   if(testsReussis){
-      printf("Tous les tests passent.");
-   } else {
-      printf("Tous les tests ne passent pas.");
-   }
+   printf("Tous les tests passent.");
+
 
 	/*Liste *liste = initialiser();
 
