@@ -42,6 +42,8 @@ int main(void) {
    testsReussis &= testLongueur();
 
    testVider();
+   testInsererEnTete();
+   testInsererEnQueue();
 
    if(testsReussis){
       printf("Tous les tests passent.");

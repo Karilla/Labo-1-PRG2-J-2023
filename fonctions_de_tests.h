@@ -29,9 +29,9 @@ bool testLongueur(void);
 
 bool testAfficher(void);
 
-bool testInsererEnTete(void);
+void testInsererEnTete(void);
 
-bool testInsererEnQueue(void);
+void testInsererEnQueue(void);
 
 bool testSupprimerEnTete(void);
 

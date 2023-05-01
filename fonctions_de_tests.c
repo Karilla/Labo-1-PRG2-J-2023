@@ -82,15 +82,27 @@ bool testAfficher(void){
 
 }
 
-bool testInsererEnTete(void){
-
+void testInsererEnTete(void){
+   Liste* liste = initialiser();
+   Info info = 1;
+   insererEnTete(liste, &info);
+   assert(liste->tete->info == info);
+   vider(liste, 0);
+   free(liste);
 }
 
-bool testInsererEnQueue(void){
-
+void testInsererEnQueue(void){
+   Liste* liste = initialiser();
+   Info info = 1;
+   insererEnTete(liste, &info);
+   assert(liste->queue->info == info);
+   vider(liste, 0);
+   free(liste);
 }
 
+// tester insererEnTete avant
 bool testSupprimerEnTete(void){
+
 
 }
 
