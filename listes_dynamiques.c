@@ -35,9 +35,11 @@
 // Renvoie NULL en cas de mémoire insuffisante
 Liste *initialiser(void) {
 	Liste *liste = (Liste *) malloc(sizeof(Liste));
+   // On vérifie que la mémoire soit suffisante pour créer la nouvelle liste
 	if (liste == NULL) {
 		return NULL;
 	}
+   // La tête et la queue d'une liste vide sont des pointeurs nuls
 	liste->queue = NULL;
 	liste->tete = NULL;
 
@@ -242,7 +244,7 @@ void supprimerSelonCritere(Liste *liste,
 	Element *suivant;
 	size_t indice = 0;
 	while (courant != NULL) {
-		// on teste le critere pour savoir si l'élément à d'indice indice et de
+		// on teste le critere pour savoir si l'élément à l'indice indice et de
 		// valeur info est à supprimer
 		if (critere(indice, (const Info *) &(courant->info))) {
 
@@ -266,8 +268,6 @@ void supprimerSelonCritere(Liste *liste,
 				free(courant);
 				courant = suivant;
 			}
-
-
 		} else {
 			courant = courant->suivant;
 		}
@@ -317,7 +317,7 @@ bool sontEgales(const Liste *liste1, const Liste *liste2) {
 		courant1 = courant1->suivant;
 		courant2 = courant2->suivant;
 	}
-	// si on a parcouru tous les éléments et qu'on a pas return, ils étaient tous
-	// égaux, on return true
+	// si on a parcouru tous les éléments et qu'on n'a pas return, cela veut dire
+   // qu'ils sont tous égaux, on return true
 	return true;
 }
