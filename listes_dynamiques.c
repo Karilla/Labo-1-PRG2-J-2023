@@ -1,7 +1,7 @@
 /*
  -----------------------------------------------------------------------------------
  Nom du fichier : listes_dynamiques.c
- Auteur(s)      : Eva Ray, Benoît Delay, Rschel Tranchida
+ Auteur(s)      : Eva Ray, Benoît Delay, Rachel Tranchida
  Date creation  : 26.04.2023
 
  Description    : Ce programme permet de simuler des listes doublement chaînées non
@@ -12,7 +12,8 @@
  permettent de mettre en place le chaînage et ainsi de créer une liste doublement
  chaînée. On appelle le premier maillon de la liste la "tête" et le dernier
  maillon de la liste la "queue". Ces listes ne sont pas circulaires, car on ne
- considère pas que la tête de la liste est le maillon suivant la queue de la liste.
+ considère pas que la tête de la liste est le maillon suivant la queue de la liste
+ (et vice-versa).
  Ce fichier contient la définition de toutes les fonctions déclarées dans le
  header listes_dynamiques.h permettant la manipulation et la gestion des listes
  doublement chaînées non circulaires.
@@ -27,6 +28,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+// ------------------------------------------------------------------------------
+// Initialisation de la liste.
+// N.B. Cette fonction doit obligatoirement être utilisée pour se créer une liste
+// car elle garantit la mise à NULL des champs tete et queue de la liste
+// Renvoie NULL en cas de mémoire insuffisante
 Liste *initialiser(void) {
 	Liste *liste = (Liste *) malloc(sizeof(Liste));
 	if (liste == NULL) {
@@ -48,13 +54,16 @@ bool estVide(const Liste *liste) {
 
 
 // ------------------------------------------------------------------------------
-// Renvoie combien il y a d'éléments dans liste.
+// Renvoie le nombre d'éléments d'une liste.
 size_t longueur(const Liste *liste) {
+	// On traite le cas d'une liste vide séparemment
 	if (estVide(liste)) {
 		return 0;
 	}
 	Element *courant = liste->tete;
 	size_t longueur = 0;
+	// On parcourt la liste entière et on incrémente la variable "longueur" à chaque
+	// nouveau maillon rencontré.
 	while (courant != NULL) {
 		longueur++;
 		courant = courant->suivant;
@@ -104,20 +113,28 @@ void afficher(const Liste *liste, Mode mode) {
 // Renvoie OK si l'insertion s'est déroulée avec succès et MEMOIRE_INSUFFISANTE
 // s'il n'y a pas assez de mémoire pour créer le nouvel élément.
 Status insererEnTete(Liste *liste, const Info *info) {
-	Element *element = (Element *) malloc(sizeof(Element));
-	if (element == NULL) {
+	Element *nouvelElement = (Element *) malloc(sizeof(Element));
+	// On vérifie que la mémoire soit suffisante pour créer le nouvel Element
+	if (nouvelElement == NULL) {
 		return MEMOIRE_INSUFFISANTE;
 	}
-	element->info = *info;
-	element->suivant = liste->tete;
-	element->precedent = NULL;
+	nouvelElement->info = *info;
+	// Le nouvel élément devient la tête de la liste, le maillon suivant est donc
+	// la tête de liste actuelle et le maillon précédent doit être le pointeur nul
+	nouvelElement->suivant = liste->tete;
+	nouvelElement->precedent = NULL;
+	// Si la liste n'est pas vide, la tête actuelle devient le second élément et
+	// son attribut "precedent" doit donc pointer sur le nouvel élément et non plus
+	// être NULL
 	if (!estVide(liste)) {
-		liste->tete->precedent = element;
-
+		liste->tete->precedent = nouvelElement;
 	} else {
-		liste->queue = element;
+		// si la liste est vide, le nouvel élément doit être à la fois la tête et la
+		// queue de la liste
+		liste->queue = nouvelElement;
 	}
-	liste->tete = element;
+	// on met le nouvel élément en tête de liste
+	liste->tete = nouvelElement;
 	return OK;
 }
 // ------------------------------------------------------------------------------
@@ -128,19 +145,26 @@ Status insererEnTete(Liste *liste, const Info *info) {
 // s'il n'y a pas assez de mémoire pour créer le nouvel élément.
 Status insererEnQueue(Liste *liste, const Info *info) {
 	Element *nouvelElement = (Element *) malloc(sizeof(Element));
+	// On vérifie que la mémoire soit suffisante pour créer le nouvel Element
 	if (nouvelElement == NULL) {
 		return MEMOIRE_INSUFFISANTE;
 	}
 	nouvelElement->info = *info;
+	// Le nouvel élément devient la queue de la liste, le maillon suivant est donc
+	// le pointeur nul et le maillon précédent doit être la queue de liste actuelle
 	nouvelElement->suivant = NULL;
+	nouvelElement->precedent = liste->queue;
+	// Si la liste n'est pas vide, la queue actuelle devient l'avant-dernier
+	// élément et son attribut "suivant" doit donc pointer sur le nouvel élément
+	// et non plus être NULL
 	if (!estVide(liste)) {
 		liste->queue->suivant = nouvelElement;
-
 	} else {
+		// si la liste est vide, le nouvel élément doit être à la fois la tête et la
+		// queue de la liste
 		liste->tete = nouvelElement;
 	}
-
-	nouvelElement->precedent = liste->queue;
+	//nouvelElement->precedent = liste->queue;
 	liste->queue = nouvelElement;
 	return OK;
 
@@ -265,12 +289,10 @@ void vider(Liste *liste, size_t position) {
 	if (taille <= position) {
 		return;
 	}
-
-	Info info = 0;
+	// on supprime en queue jusqu'à la position que l'on veut supprimer comprise
 	for (size_t i = 0; i < taille - position; i++) {
 		supprimerEnQueue(liste, NULL);
 	}
-
 }
 // ------------------------------------------------------------------------------
 

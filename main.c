@@ -1,25 +1,26 @@
 /*
  -----------------------------------------------------------------------------------
  Nom du fichier : main.c
- Auteur(s)      : <A compléter>
+ Auteur(s)      : Rachel Tranchida, Benoît Delay, Eva Ray
  Date creation  : 26.04.2023
 
- Description    : Fichier de test des fonctions de la librairie liste_dynamique.
- 						Chaque fonction de la librairie à tester à une fonction de
- 						test.
- 						Les fonctions de tests retournent toutes un bool si le test est
- 						un succès et false sinon et ne prennent aucun paramètre. Dans le
- 						main, toutes les fonctions de tests sont stockées dans un tableau
- 						de pointeur sur des fonctions ne prenant aucun paramètre et
- 						retournant un bool. Chaque fonction imprime son nom puis s'il y
- 						a des erreurs, la nature de l'erreur pour faciliter le debuggage
- 						. Pour chaque fonction, dans le main, on imprime si le test
- 						était un échec ou une réussite selon le retour de la fonction de
- 						test. Enfin, utilise un bool pour imprimer à la fin des tests
- 						s'ils ont tous passés ou s'il y a encore des problèmes.
+ Description    : Fichier de test des fonctions de la librairie listes_dynamiques.
+ 						Chaque fonction de la librairie à tester a une fonction de
+ 						test associée.
+ 						Les fonctions de tests retournent toutes un bool qui vaut true
+ 						si le test est un succès et false sinon et ne prennent aucun
+ 						paramètre. Dans le main, toutes les fonctions de tests sont
+ 						stockées dans un tableau de pointeurs sur des fonctions ne
+ 						prenant aucun paramètre et retournant un bool. Chaque fonction
+ 						imprime son nom puis, s'il y a des erreurs, la nature de
+ 						l'erreur pour faciliter le débuggage. Pour chaque fonction, dans
+ 						le main, on imprime si le test est un échec ou une réussite
+ 						selon le retour de la fonction de test. Enfin, on utilise un bool
+ 						pour imprimer à la fin des tests s'ils ont tous passé ou s'il y
+ 						a encore des problèmes.
 
 
- Remarque(s)    : <A compléter>
+ Remarque(s)    : -
 
  Compilateur    : Mingw-w64 gcc 9.0
  -----------------------------------------------------------------------------------
@@ -78,7 +79,6 @@ int main(void) {
 	"Les tests ne passent pas");
 
 	return EXIT_SUCCESS;
-
 }
 
 // FONCTIONS UTILISEES DANS LES TESTS
