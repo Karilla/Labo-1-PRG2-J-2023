@@ -7,4 +7,4 @@ set(CMAKE_C_FLAGS "-Wall -Wextra -Wconversion -Wsign-conversion -pedantic")
 include_directories(.)
 
 add_executable(Labo_1_PRG2_J_2023
-        listes_dynamiques.h listes_dynamiques.c fonctions_de_tests.h fonctions_de_tests.c main.c)
+        listes_dynamiques.h listes_dynamiques.c main.c)

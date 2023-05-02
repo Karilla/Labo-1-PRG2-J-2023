@@ -71,14 +71,18 @@ size_t longueur(const Liste *liste) {
 void afficher(const Liste *liste, Mode mode) {
 	printf("[");
 	if (!estVide(liste)) {
+		// On initialise l'élément actuel (courant) avec le premier élément à
+		// parcourir, queue pour BACKWARD et tete pour FORWARD
 		Element *courant = mode == FORWARD ? liste->tete : liste->queue;
+		//tant que courant n'est pas nul, i.e on a pas fini de parcourir la liste
 		while (courant != NULL) {
 			printf("%d", courant->info);
+			// on met à jour courant avec la valeur suivante en fonction du mode
 			switch (mode) {
-				case FORWARD :
+				case FORWARD : // on prend l'élément suivant
 					courant = courant->suivant;
 					break;
-				case BACKWARD :
+				case BACKWARD : // on pend l'élément précédent
 					courant = courant->precedent;
 					break;
 				default:
@@ -148,14 +152,16 @@ Status insererEnQueue(Liste *liste, const Info *info) {
 // puis supprime, en restituant la mémoire allouée, ledit élément.
 // Renvoie LISTE_VIDE si la liste passée en paramètre est vide, OK sinon.
 Status supprimerEnTete(Liste *liste, Info *info) {
+	// si la liste est vide on retourne le Status LISTE_VIDE, on ne peut rien
+	// supprimer
 	if (estVide(liste)) {
 		return LISTE_VIDE;
 	}
+	Element* temp = liste->tete;
+	// si info n'est pas NULL, on lui donne la valeur de l'élément que l'on supprime
 	if (info) {
 		*info = liste->tete->info;
 	}
-
-	Element *temp = liste->tete;
 
 	// s'il n'y a qu'un seul élément
 	if (liste->tete->suivant == NULL) {
@@ -164,6 +170,7 @@ Status supprimerEnTete(Liste *liste, Info *info) {
 		liste->tete->suivant->precedent = NULL;
 
 	}
+	// la tete doit pointer sur l'élément suivant (le nouveau premier élément)
 	liste->tete = liste->tete->suivant;
 	free(temp);
 	return OK;
@@ -175,14 +182,17 @@ Status supprimerEnTete(Liste *liste, Info *info) {
 // puis supprime, en restituant la mémoire allouée, ledit élément.
 // Renvoie LISTE_VIDE si la liste passée en paramètre est vide, OK sinon.
 Status supprimerEnQueue(Liste *liste, Info *info) {
+	// si la liste est vide on retourne le Status LISTE_VIDE, on ne peut rien
+	// supprimer
 	if (estVide(liste)) {
 		return LISTE_VIDE;
 	}
+	Element* temp = liste->queue;
+	// si info n'est pas NULL, on lui donne la valeur de l'élément que l'on supprime
 	if (info) {
 		*info = liste->queue->info;
 	}
 
-	Element *temp = liste->queue;
 
 	// s'il n'y a qu'un seul élément
 	if (liste->queue->precedent == NULL) {
@@ -190,9 +200,9 @@ Status supprimerEnQueue(Liste *liste, Info *info) {
 	} else { // sinon, on met le suivant de l'élément précédent à NULL
 		liste->queue->precedent->suivant = NULL;
 	}
+
 	liste->queue = liste->queue->precedent;
 	free(temp);
-
 	return OK;
 }
 // ------------------------------------------------------------------------------
@@ -208,14 +218,22 @@ void supprimerSelonCritere(Liste *liste,
 	Element *suivant;
 	size_t indice = 0;
 	while (courant != NULL) {
+		// on teste le critere pour savoir si l'élément à d'indice indice et de
+		// valeur info est à supprimer
 		if (critere(indice, (const Info *) &(courant->info))) {
 
+			// si c'est le premier élément
 			if (courant->precedent == NULL) {
+				// on supprime l'élément en tête
 				supprimerEnTete(liste, &(courant->info));
+				// l'élément courant pointe sur la nouvelle tête
 				courant = liste->tete;
+
+				// si c'est le dernier élément
 			} else if (courant->suivant == NULL) {
+				// on supprime en queue
 				supprimerEnQueue(liste, &(courant->info));
-				return;
+				return; // on return car on est au dernier élément
 			} else {
 				suivant = courant->suivant;
 				courant->precedent->suivant = courant->suivant;
@@ -242,6 +260,8 @@ void supprimerSelonCritere(Liste *liste,
 void vider(Liste *liste, size_t position) {
 
 	size_t taille = longueur(liste);
+	//si la taille est plus petite ou égale à la position, la position est
+	// invalide, on ne supprime rien et on return
 	if (taille <= position) {
 		return;
 	}
@@ -259,17 +279,23 @@ void vider(Liste *liste, size_t position) {
 // apparaissant dans le même ordre), false sinon.
 // N.B. 2 listes vides sont considérées comme égales.
 bool sontEgales(const Liste *liste1, const Liste *liste2) {
-	if (liste1 == NULL || liste2 == NULL || longueur(liste1) != longueur(liste2)) {
+	//si les listes n'ont pas la même taille, elle ne sont pas égales et on return
+	// false
+	if (longueur(liste1) != longueur(liste2)) {
 		return false;
 	}
+	//sinon on compare élément par élément
 	Element *courant1 = liste1->tete;
 	Element *courant2 = liste2->tete;
 	while (courant1 != NULL) {
+		//si deux éléments ne sont pas égaux on return false
 		if (courant1->info != courant2->info) {
 			return false;
 		}
 		courant1 = courant1->suivant;
 		courant2 = courant2->suivant;
 	}
+	// si on a parcouru tous les éléments et qu'on a pas return, ils étaient tous
+	// égaux, on return true
 	return true;
 }
