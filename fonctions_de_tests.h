@@ -19,27 +19,27 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-void remplirListe(Liste *liste, int taille);
+void remplirListe(Liste *liste, size_t taille);
 
-void testInitialiser(void);
+bool testInitialiser(void);
 
-void testEstVide(void);
+bool testEstVide(void);
 
-void testLongueur(void);
+bool testLongueur(void);
 
 void testAfficher(void);
 
-void testInsererEnTete(void);
+bool testInsererEnTete(void);
 
-void testInsererEnQueue(void);
+bool testInsererEnQueue(void);
 
 void testSupprimerEnTete(void);
 
 void testSupprimerEnQueue(void);
 
-void testSupprimerSelonCritere(void);
+bool testSupprimerSelonCritere(void);
 
-void testVider(void);
+bool testVider(void);
 
 bool testSontEgales(void);
 

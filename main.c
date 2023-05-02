@@ -19,13 +19,6 @@
 #include "fonctions_de_tests.h"
 #include <assert.h>
 
-bool impairOuindex(size_t i, Info *info) {
-	if (i % 2 == 1 || (*info > 1 && *info < 4)) {
-		return true;
-	} else {
-		return false;
-	}
-}
 
 /*void remplirListe(Liste *liste, int taille) {
 	for (int i = 0; i < taille; ++i) {
@@ -35,16 +28,17 @@ bool impairOuindex(size_t i, Info *info) {
 
 int main(void) {
 
-   testInitialiser();
-   testVider();
-   testInsererEnTete();
-   testInsererEnQueue();
-   testEstVide();
-   testSupprimerEnTete();
-   testSupprimerEnQueue();
-   testLongueur();
-   assert(testSontEgales());
-   printf("Tous les tests passent.");
+	testInitialiser();
+	testVider();
+	testInsererEnTete();
+	testInsererEnQueue();
+	testEstVide();
+	testSupprimerEnTete();
+	testSupprimerEnQueue();
+	testLongueur();
+	testSupprimerSelonCritere();
+	assert(testSontEgales());
+	printf("Tous les tests passent.");
 
 
 	/*Liste *liste = initialiser();
