@@ -17,13 +17,14 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <assert.h>
 
 #define ANSI_COLOR_RED     "\x1b[31m"
 #define ANSI_COLOR_GREEN   "\x1b[32m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
 
-bool impairOuEntre1et4(size_t i, Info *info) {
+
+// FONCTIONS UTILISEES DANS LES TESTS
+bool impairOuEntre1et4(size_t i, const Info *info) {
 	if (i % 2 == 1 || (*info > 1 && *info < 4)) {
 		return true;
 	}
@@ -49,6 +50,8 @@ void remplirListe(Liste *liste, size_t taille) {
 	}
 }
 
+// FONCTIONS DE TESTS
+
 // trouver un truc pour vérifier en cas de mémoire insuffisante
 bool testInitialiser(void) {
 	printf("%s:\n", __func__);
@@ -68,13 +71,13 @@ bool testEstVide(void) {
 	Liste *liste = initialiser();
 	bool testReussi = true;
 	if (!estVide(liste)) { // on teste si une liste vide est bien vide
-		printf("testEstVide: liste vide n'est pas vide\n");
+		printf("\tErreur: liste vide n'est pas vide\n", __func__);
 		testReussi = false;
 	} else {
 		Info info = 1;
 		insererEnTete(liste, &info);
 		if (estVide(liste)) { // on teste si une liste non vide est bien non vide
-			printf("testEstVide: liste non vide est vide\n");
+			printf("\tErreur: liste non vide est vide\n");
 			testReussi = false;
 		}
 	}
@@ -83,8 +86,10 @@ bool testEstVide(void) {
 	return testReussi;
 }
 
-// le test d'inserererEnTete doit être fait avant celui de longueur car on utilise insererEnTete dans cette fct
-// le test d'inserererEnTete doit être fait avant celui de longueur car on utilise insererEnTete dans cette fct
+// le test d'insererEnTete doit être fait avant celui de longueur, car on utilise
+// insererEnTete dans cette fct
+// le test d'insererEnTete doit être fait avant celui de longueur, car on utilise
+// insererEnTete dans cette fct
 bool testLongueur(void) {
 	printf("%s:\n", __func__);
 	Liste *liste = initialiser();
@@ -92,9 +97,10 @@ bool testLongueur(void) {
 	for (size_t i = 1; i < 3; i++) {
 		Info info = (int) i;
 		insererEnTete(liste, &info);
-		if (longueur(liste) !=
-			 i) { // on vérifie que la longueur de la liste est bien égale au nombre d'éléments insérés
-			printf("%s : longueur attendue %zu, actuelle %lld\n", __func__, i, longueur
+		if (longueur(liste) != i) { // on vérifie que la longueur de la liste est
+			// bien égale au nombre
+			// d'éléments insérés
+			printf( "\tErreur : longueur attendue %zu, actuelle %zu\n", i, longueur
 				(liste));
 			testReussi = false;
 		}
@@ -133,7 +139,7 @@ bool testInsererEnTete(void) {
 	Info info = 1;
 	insererEnTete(liste, &info);
 	if (liste->tete->info != info) {
-		printf("testInsererEnTete: info attendue %d, actuelle %d\n", info,
+		printf("Erreur : info attendue %d, actuelle %d\n", info,
 				 liste->tete->info);
 		testReussi = false;
 	}
@@ -149,7 +155,7 @@ bool testInsererEnQueue(void) {
 	Info info = 1;
 	insererEnQueue(liste, &info);
 	if (liste->queue->info != info) {
-		printf("testInsererEnQueue: info attendue %d, actuelle %d\n", info,
+		printf("\tErreur : info attendue %d, actuelle %d\n", info,
 				 liste->queue->info);
 		testReussi = false;
 	}
@@ -159,48 +165,86 @@ bool testInsererEnQueue(void) {
 }
 
 // tester insererEnTete avant
-void testSupprimerEnTete(void) {
+bool testSupprimerEnTete(void) {
+	printf("%s:\n", __func__);
 	Liste *liste = initialiser();
 	bool testReussi = true;
 	Info infoPremierElement = 1;
 	Info infoDeuxiemeElement = 2;
 	Info infoRetour;
-	if (supprimerEnTete(liste, NULL) !=
-		 LISTE_VIDE)
-		testReussi = false; // on vérifie le cas d'une liste vide
-	insererEnTete(liste, &infoPremierElement);
-	supprimerEnTete(liste, &infoRetour);
-	assert(estVide(liste)); // on vérifie pour une liste de 1 élément
-	assert(infoPremierElement == infoRetour);
-	insererEnTete(liste, &infoPremierElement);
-	insererEnTete(liste, &infoDeuxiemeElement);
-	supprimerEnTete(liste, &infoRetour);
-	assert(liste->tete->info ==
-			 infoPremierElement); // on vérifie pour une liste de 2 éléments (cas général)
-	assert(infoDeuxiemeElement == infoRetour);
+	if (supprimerEnTete(liste, NULL) != LISTE_VIDE) { // on vérifie le cas d'une
+		// liste vide
+		printf("\tErreur: le cas de la liste vide n'est pas traite correctement.\n");
+		testReussi = false;
+	} else {
+		insererEnTete(liste, &infoPremierElement);
+		supprimerEnTete(liste, &infoRetour);
+		if (!estVide(liste)) { // on vérifie pour une liste de 1 élément
+			printf("\tErreur: le cas de la liste de taille 1 n'est pas traite "
+					 "correctement.\n");
+			testReussi = false;
+		} else {
+			if (infoPremierElement != infoRetour) {
+				printf("\tErreur: le parametre de retour \"info\" ne contient pas "
+						 "la valeur attendue. Valeur attendue: %d, Valeur actuelle: %d\n",
+						 infoPremierElement, infoRetour);
+				testReussi = false;
+			} else {
+				insererEnTete(liste, &infoPremierElement);
+				insererEnTete(liste, &infoDeuxiemeElement);
+				supprimerEnTete(liste, &infoRetour);
+				if (liste->tete->info != infoPremierElement) {
+					printf("\tErreur: le cas de la liste de taille 2 n'est pas traite "
+							 "correctement.\n");
+					testReussi = false;
+				} // on vérifie pouune liste de 2 éléments (cas général)
+			}
+		}
+	}
 	vider(liste, 0);
 	free(liste);
+	return testReussi;
 }
 
-void testSupprimerEnQueue(void) {
+bool testSupprimerEnQueue(void) {
+	printf("%s:\n", __func__);
 	Liste *liste = initialiser();
 	Info infoPremierElement = 1;
 	Info infoDeuxiemeElement = 2;
 	Info infoRetour;
-	assert(supprimerEnQueue(liste, NULL) ==
-			 LISTE_VIDE); // on vérifie le cas d'une liste vide
-	insererEnTete(liste, &infoPremierElement);
-	supprimerEnQueue(liste, &infoRetour);
-	assert(estVide(liste)); // on vérifie pour une liste de 1 élément
-	assert(infoPremierElement == infoRetour);
-	insererEnTete(liste, &infoPremierElement);
-	insererEnTete(liste, &infoDeuxiemeElement);
-	supprimerEnQueue(liste, &infoRetour);
-	assert(liste->queue->info ==
-			 infoDeuxiemeElement); // on vérifie pour une liste de 2 éléments (cas général)
-	assert(infoPremierElement == infoRetour);
+	bool testReussi = true;
+	if (supprimerEnQueue(liste, NULL) !=
+		 LISTE_VIDE) { // on vérifie le cas d'une liste vide
+		printf("\tErreur: le cas de la liste vide n'est pas traite correctement.\n");
+		testReussi = false;
+	} else {
+		insererEnTete(liste, &infoPremierElement);
+		supprimerEnQueue(liste, &infoRetour);
+		if (!estVide(liste)) { // on vérifie pour une liste de 1 élément
+			printf("\tErreur: le cas de la liste de taille 1 n'est pas traite "
+					 "correctement.\n");
+			testReussi = false;
+		} else {
+			if (infoPremierElement != infoRetour) {
+				printf("\tErreur: le parametre de retour \"info\" ne contient pas "
+						 "la valeur attendue. Valeur attendue: %d, Valeur actuelle: %d\n",
+						 infoPremierElement, infoRetour);
+				testReussi = false;
+			} else {
+				insererEnTete(liste, &infoPremierElement);
+				insererEnTete(liste, &infoDeuxiemeElement);
+				supprimerEnQueue(liste, &infoRetour);
+				if (liste->queue->info != infoDeuxiemeElement) {
+					printf("\tErreur: le cas de la liste de taille 2 n'est pas traite "
+							 "correctement.\n");
+					testReussi = false;
+				}// on vérifie pour une liste de 2 éléments (cas général)
+			}
+		}
+	}
 	vider(liste, 0);
 	free(liste);
+	return testReussi;
 }
 
 bool testSupprimerSelonCritere(void) {
@@ -253,7 +297,6 @@ bool testVider(void) {
 //	vider(liste, 2);
 	const size_t TAILLE_REMPLISSAGE = 5;
 	for (size_t i = 0; i < 3; i++) {
-
 		remplirListe(liste, TAILLE_REMPLISSAGE);
 		remplirListe(listeAttendue, i);
 		vider(liste, i);
@@ -265,8 +308,6 @@ bool testVider(void) {
 		vider(listeAttendue, 0);
 		vider(liste, 0);
 	}
-
-
 	free(liste);
 	free(listeAttendue);
 	return testReussi;
@@ -287,7 +328,6 @@ bool testSontEgales(void) {
 	} //else {
 		//printf(ANSI_COLOR_GREEN"reussite\n"ANSI_COLOR_RESET);
 	//}
-
 
 	//Test si la liste 1 est plus grande que la 2 renvoie false
 	//printf("Test quand la liste 1 est plus grande que la liste 2: ");

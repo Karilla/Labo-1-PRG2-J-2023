@@ -33,9 +33,9 @@ bool testInsererEnTete(void);
 
 bool testInsererEnQueue(void);
 
-void testSupprimerEnTete(void);
+bool testSupprimerEnTete(void);
 
-void testSupprimerEnQueue(void);
+bool testSupprimerEnQueue(void);
 
 bool testSupprimerSelonCritere(void);
 
