@@ -13,13 +13,13 @@
  						stockées dans un tableau de pointeurs sur des fonctions ne
  						prenant aucun paramètre et retournant un bool. Chaque fonction
  						imprime son nom puis, s'il y a des erreurs, la nature de
- 						l'erreur pour faciliter le débuggage. Pour chaque fonction on
+ 						l'erreur pour faciliter le débuggage. Pour chaque fonction, on
  						imprime dans le main si le test est un échec ou une réussite,
  						selon l'information contenue dans le retour de la fonction de
  						test. Enfin, on utilise une variable bool "testsReussis" qui
  						vaut true si tous les tests ont passé, false sinon et qui nous
  						permet d'imprimer dans la console si tous les tests ont passé
- 						ou s'il y a encore des problèmes.
+ 						ou dans le cas où il y a encore des problèmes.
 
  Remarque(s)    : -
 
