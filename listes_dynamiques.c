@@ -1,12 +1,23 @@
 /*
  -----------------------------------------------------------------------------------
  Nom du fichier : listes_dynamiques.c
- Auteur(s)      : <A compléter>
+ Auteur(s)      : Eva Ray, Benoît Delay, Rschel Tranchida
  Date creation  : 26.04.2023
 
- Description    : <A compléter>
+ Description    : Ce programme permet de simuler des listes doublement chaînées non
+ circulaires. Une liste doublement chaînée est une structure qui permet de
+ représenter une liste de données ordonnées en utilisant une structure de maillon.
+ Un maillon contient une valeur ainsi que deux pointeurs, un vers le maillon
+ suivant et un vers le maillon précédent. Ce sont ces deux pointeurs qui
+ permettent de mettre en place le chaînage et ainsi de créer une liste doublement
+ chaînée. On appelle le premier maillon de la liste la "tête" et le dernier
+ maillon de la liste la "queue". Ces listes ne sont pas circulaires, car on ne
+ considère pas que la tête de la liste est le maillon suivant la queue de la liste.
+ Ce fichier contient la définition de toutes les fonctions déclarées dans le
+ header listes_dynamiques.h permettant la manipulation et la gestion des listes
+ doublement chaînées non circulaires.
 
- Remarque(s)    : <A compléter>
+ Remarque(s)    : -
 
  Compilateur    : Mingw-w64 gcc 9.0
  -----------------------------------------------------------------------------------
@@ -15,7 +26,6 @@
 #include "listes_dynamiques.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <assert.h>
 
 Liste *initialiser(void) {
 	Liste *liste = (Liste *) malloc(sizeof(Liste));
@@ -141,14 +151,14 @@ Status supprimerEnTete(Liste *liste, Info *info) {
 	if (estVide(liste)) {
 		return LISTE_VIDE;
 	}
-   if(info){
-      *info = liste->tete->info;
-   }
+	if (info) {
+		*info = liste->tete->info;
+	}
 
-	Element* temp = liste->tete;
+	Element *temp = liste->tete;
 
 	// s'il n'y a qu'un seul élément
-	if(liste->tete->suivant == NULL) {
+	if (liste->tete->suivant == NULL) {
 		liste->queue = NULL; // on met la queue à NULL
 	} else { // sinon on met le précédent de l'élément suivant à NULL
 		liste->tete->suivant->precedent = NULL;
@@ -168,14 +178,14 @@ Status supprimerEnQueue(Liste *liste, Info *info) {
 	if (estVide(liste)) {
 		return LISTE_VIDE;
 	}
-   if(info){
-      *info = liste->queue->info;
-   }
+	if (info) {
+		*info = liste->queue->info;
+	}
 
-	Element* temp = liste->queue;
+	Element *temp = liste->queue;
 
 	// s'il n'y a qu'un seul élément
-	if(liste->queue->precedent == NULL){
+	if (liste->queue->precedent == NULL) {
 		liste->tete = NULL; // on met la tête à NULL
 	} else { // sinon, on met le suivant de l'élément précédent à NULL
 		liste->queue->precedent->suivant = NULL;
@@ -237,7 +247,7 @@ void vider(Liste *liste, size_t position) {
 	}
 
 	Info info = 0;
-	for(size_t i = 0; i < taille-position; i++){
+	for (size_t i = 0; i < taille - position; i++) {
 		supprimerEnQueue(liste, NULL);
 	}
 

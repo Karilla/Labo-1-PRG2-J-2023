@@ -51,6 +51,8 @@ void remplirListe(Liste *liste, size_t taille) {
 
 // trouver un truc pour vérifier en cas de mémoire insuffisante
 bool testInitialiser(void) {
+	printf("%s:\n", __func__);
+
 	Liste *liste = initialiser();
 	if (liste->queue == NULL && liste->tete == NULL) {
 		free(liste);
@@ -62,6 +64,7 @@ bool testInitialiser(void) {
 
 // le test d'inserererEnTete doit être fait avant celui de estVide car on utilise insererEnTete dans cette fct
 bool testEstVide(void) {
+	printf("%s:\n", __func__);
 	Liste *liste = initialiser();
 	bool testReussi = true;
 	if (!estVide(liste)) { // on teste si une liste vide est bien vide
@@ -83,6 +86,7 @@ bool testEstVide(void) {
 // le test d'inserererEnTete doit être fait avant celui de longueur car on utilise insererEnTete dans cette fct
 // le test d'inserererEnTete doit être fait avant celui de longueur car on utilise insererEnTete dans cette fct
 bool testLongueur(void) {
+	printf("%s:\n", __func__);
 	Liste *liste = initialiser();
 	bool testReussi = true;
 	for (size_t i = 1; i < 3; i++) {
@@ -123,6 +127,7 @@ void testAfficher(void) {
 }
 
 bool testInsererEnTete(void) {
+	printf("%s:\n", __func__);
 	bool testReussi = true;
 	Liste *liste = initialiser();
 	Info info = 1;
@@ -138,6 +143,7 @@ bool testInsererEnTete(void) {
 }
 
 bool testInsererEnQueue(void) {
+	printf("%s:\n", __func__);
 	bool testReussi = true;
 	Liste *liste = initialiser();
 	Info info = 1;
@@ -198,29 +204,34 @@ void testSupprimerEnQueue(void) {
 }
 
 bool testSupprimerSelonCritere(void) {
+	printf("%s:\n", __func__);
 	Liste *liste = initialiser();
 	Liste *listeAttendue = initialiser();
-
+	bool testReussi = true;
 	remplirListe(liste, 5);
 	remplirSelonCritere(listeAttendue, 5, (bool (*)(size_t, const Info *))
 		impairOuEntre1et4);
 	supprimerSelonCritere(liste, (bool (*)(size_t, const Info *)) impairOuEntre1et4);
 
 	if (!sontEgales(liste, listeAttendue)) {
-		printf("%s: listeAttendue et liste ne sont pas "
-				 "egales\n", __func__);
-		printf("listeAttendue: ");
+		printf("\tErreur: liste attendue et liste ne sont pas egales\n");
+		printf("\t\tliste attendue: ");
 		afficher(listeAttendue, FORWARD);
-		printf("liste recue: ");
+		printf("\t\tliste recue: ");
 		afficher(liste, FORWARD);
-		return false;
+		testReussi = false;
 	}
-	return true;
+	vider(liste, 0);
+	vider(listeAttendue, 0);
+	free(liste);
+	free(listeAttendue);
+	return testReussi;
 }
 
 
 // j'utilise pas estVide car testEstVide utilise Vider
 bool testVider(void) {
+	printf("%s:\n", __func__);
 	bool testReussi = true;
 	Liste *liste = initialiser();
 	Liste *listeAttendue = initialiser();
@@ -247,8 +258,8 @@ bool testVider(void) {
 		remplirListe(listeAttendue, i);
 		vider(liste, i);
 		if (!sontEgales(liste, listeAttendue)) {
-			printf("%s: listeAttendue et liste ne sont pas égales pour vider "
-					 "depuis l'élément %zu\n", __func__, i);
+			printf("\tErreur: listeAttendue et liste ne sont pas égales pour vider "
+					 "depuis l'élément %zu\n", i);
 			testReussi = false;
 		}
 		vider(listeAttendue, 0);
@@ -262,63 +273,65 @@ bool testVider(void) {
 }
 
 bool testSontEgales(void) {
-	printf("Fonction de test pour la fonction sontEgales....\n");
+	printf("%s:\n", __func__);
 	bool testOk = true;
 	Liste *liste1 = initialiser();
 	Liste *liste2 = initialiser();
 
-	printf("Test quand les 2 listes sont vides: ");
+	//printf("Test quand les 2 listes sont vides: ");
 	//Test si les 2 listes sont vides la fonction nous renvoie true
-	if (sontEgales(liste1, liste2) != true) {
-		printf(ANSI_COLOR_RED"echec\n"ANSI_COLOR_RESET);
+	if (!sontEgales(liste1, liste2)) {
+		//printf(ANSI_COLOR_RED"echec\n"ANSI_COLOR_RESET);
+		printf("\tErreur: Mauvais résultat quand les deux listes sont vides\n");
 		testOk = false;
-	} else {
-		printf(ANSI_COLOR_GREEN"reussite\n"ANSI_COLOR_RESET);
-	}
+	} //else {
+		//printf(ANSI_COLOR_GREEN"reussite\n"ANSI_COLOR_RESET);
+	//}
 
 
 	//Test si la liste 1 est plus grande que la 2 renvoie false
-	printf("Test quand la liste 1 est plus grande que la liste 2: ");
+	//printf("Test quand la liste 1 est plus grande que la liste 2: ");
 	Info valeur = 10;
 	insererEnTete(liste1, &valeur);
-	if (sontEgales(liste1, liste2) != false) {
-		printf(ANSI_COLOR_RED"echec\n"ANSI_COLOR_RESET);
+	if (sontEgales(liste1, liste2)) {
+		//printf(ANSI_COLOR_RED"echec\n"ANSI_COLOR_RESET);
+		printf("\tErreur: Quand liste 1 plus grande que liste 2:\n");
 		testOk = false;
-	} else {
-		printf(ANSI_COLOR_GREEN"reussite\n"ANSI_COLOR_RESET);
 	}
+	//else {
+		//printf(ANSI_COLOR_GREEN"reussite\n"ANSI_COLOR_RESET);
+	//}
 
 	//Test si la liste 1 et la liste 2 sont egales et renvoie true
-	printf("Test quand les 2 listes sont bien egales: ");
 	insererEnTete(liste2, &valeur);
-	if (sontEgales(liste1, liste2) != true) {
-		printf(ANSI_COLOR_RED"echec\n"ANSI_COLOR_RESET);
+	if (!sontEgales(liste1, liste2)) {
+		//printf(ANSI_COLOR_RED"echec\n"ANSI_COLOR_RESET);
+		printf("\tErreur: Mauvais résultat quand les deux listes sont égales\n");
 		testOk = false;
-	} else {
-		printf(ANSI_COLOR_GREEN"reussite\n"ANSI_COLOR_RESET);
 	}
+	//else {
+		//printf(ANSI_COLOR_GREEN"reussite\n"ANSI_COLOR_RESET);
+	//}
 
 	//Test quand liste 1 et liste 2 ont la meme taille mais pas les meme elements
-	printf(
-		"Test quand les 2 listes ont la meme taille mais pas les memes elements: ");
 	supprimerEnQueue(liste2, NULL);
 	valeur = 20;
 	insererEnTete(liste2, &valeur);
-	if (sontEgales(liste1, liste2) != false) {
-		printf(ANSI_COLOR_RED"echec\n"ANSI_COLOR_RESET);
+	if (sontEgales(liste1, liste2)) {
+		// printf(ANSI_COLOR_RED"echec\n"ANSI_COLOR_RESET);
+		printf("\tErreur : Mauvais resultats quand les listes ont la meme taille "
+				 "mais pas le meme nombre d'elements.\n");
 		testOk = false;
-	} else {
-		printf(ANSI_COLOR_GREEN"reussite\n"ANSI_COLOR_RESET);
 	}
 
+
 	//Test quand la liste 2 est plus grande que la liste 1 renvoie false
-	printf("Test quand la liste 2 est plus grande que la liste 1: ");
 	insererEnTete(liste2, &valeur);
-	if (sontEgales(liste1, liste2) != false) {
-		printf(ANSI_COLOR_RED"echec\n"ANSI_COLOR_RESET);
+	if (sontEgales(liste1, liste2)) {
+		//printf(ANSI_COLOR_RED"echec\n"ANSI_COLOR_RESET);
+		printf("\tErreur: Mauvais resultat quand la liste 2 est plus grande que la "
+				 "liste 1\n");
 		testOk = false;
-	} else {
-		printf(ANSI_COLOR_GREEN"success\n"ANSI_COLOR_RESET);
 	}
 
 	vider(liste1, 0);

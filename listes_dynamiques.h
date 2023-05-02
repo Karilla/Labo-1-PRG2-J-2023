@@ -35,13 +35,13 @@ typedef int Info;
 
 typedef struct element {
 	Info info;
-	struct element* suivant;
-	struct element* precedent;
+	struct element *suivant;
+	struct element *precedent;
 } Element;
 
 typedef struct {
-	Element* tete;
-	Element* queue;
+	Element *tete;
+	Element *queue;
 } Liste;
 
 // ------------------------------------------------------------------------------
@@ -49,17 +49,17 @@ typedef struct {
 // N.B. Cette fonction doit obligatoirement être utilisée pour se créer une liste
 // car elle garantit la mise à NULL des champs tete et queue de la liste
 // Renvoie NULL en cas de mémoire insuffisante
-Liste* initialiser(void);
+Liste *initialiser(void);
 // ------------------------------------------------------------------------------
 
 // ------------------------------------------------------------------------------
 // Renvoie true si liste est vide, false sinon.
-bool estVide(const Liste* liste);
+bool estVide(const Liste *liste);
 // ------------------------------------------------------------------------------
 
 // ------------------------------------------------------------------------------
 // Renvoie combien il y a d'éléments dans liste.
-size_t longueur(const Liste* liste);
+size_t longueur(const Liste *liste);
 // ------------------------------------------------------------------------------
 
 // ------------------------------------------------------------------------------
@@ -67,35 +67,35 @@ size_t longueur(const Liste* liste);
 // Dans le cas d'une liste vide, affiche : []
 // En mode FORWARD, resp. BACKWARD, l'affichage se fait en parcourant liste
 // dans le sens tete -> queue, resp. queue -> tete.
-void afficher(const Liste* liste, Mode mode);
+void afficher(const Liste *liste, Mode mode);
 // ------------------------------------------------------------------------------
 
 // ------------------------------------------------------------------------------
 // Insère un nouvel élément (contenant info) en tête de liste.
 // Renvoie OK si l'insertion s'est déroulée avec succès et MEMOIRE_INSUFFISANTE
 // s'il n'y a pas assez de mémoire pour créer le nouvel élément.
-Status insererEnTete(Liste* liste, const Info* info);
+Status insererEnTete(Liste *liste, const Info *info);
 // ------------------------------------------------------------------------------
 
 // ------------------------------------------------------------------------------
 // Insère un nouvel élément (contenant info) en queue de liste.
 // Renvoie OK si l'insertion s'est déroulée avec succès et MEMOIRE_INSUFFISANTE
 // s'il n'y a pas assez de mémoire pour créer le nouvel élément.
-Status insererEnQueue(Liste* liste, const Info* info);
+Status insererEnQueue(Liste *liste, const Info *info);
 // ------------------------------------------------------------------------------
 
 // ------------------------------------------------------------------------------
 // Renvoie, via le paramètre info, l'info stockée dans l'élément en tête de liste,
 // puis supprime, en restituant la mémoire allouée, ledit élément.
 // Renvoie LISTE_VIDE si la liste passée en paramètre est vide, OK sinon.
-Status supprimerEnTete(Liste* liste, Info* info);
+Status supprimerEnTete(Liste *liste, Info *info);
 // ------------------------------------------------------------------------------
 
 // ------------------------------------------------------------------------------
 // Renvoie, via le paramètre info, l'info stockée dans l'élément en queue de liste,
 // puis supprime, en restituant la mémoire allouée, ledit élément.
 // Renvoie LISTE_VIDE si la liste passée en paramètre est vide, OK sinon.
-Status supprimerEnQueue(Liste* liste, Info* info);
+Status supprimerEnQueue(Liste *liste, Info *info);
 // ------------------------------------------------------------------------------
 
 // ------------------------------------------------------------------------------
@@ -103,22 +103,22 @@ Status supprimerEnQueue(Liste* liste, Info* info);
 // vérifient le critère passé en second paramètre.
 // Exemple: on souhaite supprimer de la liste tous les éléments dont la position est
 // impaire et pour lesquels info est compris dans un certain intervalle de valeurs
-void supprimerSelonCritere(Liste* liste,
-									bool (*critere)(size_t position, const Info* info));
+void supprimerSelonCritere(Liste *liste,
+									bool (*critere)(size_t position, const Info *info));
 // ------------------------------------------------------------------------------
 
 // ------------------------------------------------------------------------------
 // Supprime, en restituant la mémoire allouée, tous les éléments de la liste
 // à partir de la position position
 // N.B. Vider à partir de la position 0 signifie vider toute la liste.
-void vider(Liste* liste, size_t position);
+void vider(Liste *liste, size_t position);
 // ------------------------------------------------------------------------------
 
 // ------------------------------------------------------------------------------
 // Renvoie true si liste1 et liste2 sont égales (au sens mêmes infos et infos
 // apparaissant dans le même ordre), false sinon.
 // N.B. 2 listes vides sont considérées comme égales.
-bool sontEgales(const Liste* liste1, const Liste* liste2);
+bool sontEgales(const Liste *liste1, const Liste *liste2);
 // ------------------------------------------------------------------------------
 
 #endif
