@@ -25,6 +25,8 @@
                   information sur le déroulement de la fonction en question et peut
                   être utilisé par l'utilisateur pour implémenter un traitement
                   d'exceptions.
+                  Le cas où le paramètre liste est passé en tant que pointeur NULL
+                  n'est pas traité par ce programme.
 
  Compilateur    : Mingw-w64 gcc 9.0
  -----------------------------------------------------------------------------------
@@ -78,10 +80,10 @@ void afficher(const Liste *liste, Mode mode) {
 			printf("%d", courant->info);
 			// On met à jour courant avec la valeur suivante en fonction du mode
 			switch (mode) {
-				case FORWARD : // On prend l'élément suivant
+				case FORWARD :
 					courant = courant->suivant;
 					break;
-				case BACKWARD : // On prend l'élément précédent
+				case BACKWARD :
 					courant = courant->precedent;
 					break;
 				default:
@@ -103,7 +105,7 @@ Status insererEnTete(Liste *liste, const Info *info) {
 	}
 	nouvelElement->info = *info;
 	// Le nouvel élément devient la tête de la liste, le maillon suivant est donc
-	// la tête de liste actuelle et le maillon précédent doit être le pointeur nul
+	// la tête de liste actuelle et le maillon précédent doit être le pointeur NULL
 	nouvelElement->suivant = liste->tete;
 	nouvelElement->precedent = NULL;
 	// Si la liste n'est pas vide, la tête actuelle devient le second élément et
@@ -158,7 +160,6 @@ Status supprimerEnTete(Liste *liste, Info *info) {
 	if (info) {
 		*info = liste->tete->info;
 	}
-
 	// S'il n'y a qu'un seul élément
 	if (liste->tete->suivant == NULL) {
 		liste->queue = NULL; // On met la queue à NULL
@@ -195,7 +196,7 @@ Status supprimerEnQueue(Liste *liste, Info *info) {
 }
 
 void supprimerSelonCritere(Liste *liste,
-									bool (*critere)(size_t position, const Info *info)) {
+                           bool (*critere)(size_t position, const Info *info)) {
 	Element *courant = liste->tete;
 	Element *suivant;
 	size_t indice = 0;
@@ -203,7 +204,6 @@ void supprimerSelonCritere(Liste *liste,
 		// On teste le critère pour savoir si l'élément à l'indice indice et de
 		// valeur info est à supprimer
 		if (critere(indice, (const Info *) &(courant->info))) {
-
 			// Si c'est le premier élément
 			if (courant->precedent == NULL) {
 				// On supprime l'élément en tête
