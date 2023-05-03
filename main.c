@@ -50,10 +50,31 @@ bool testSupprimerSelonCritere(void);
 
 bool testVider(void);
 
+/**
+ * @brief Fonction testant le bon fonctionnement de la fonction sontEgales()
+ * implémentée dans listes_dynamique.c
+ * @return true si le test est un succès, false sinon
+ */
 bool testSontEgales(void);
 
+/**
+ * @brief Fonction d'exemple utilisée comme critère pour tester
+ * supprimerSelonCritere. Elle teste si la position est impaire ou si la valeur
+ * contenue à cette position est entre 1 et 4
+ * @param i position du maillon dans une liste doublement chaînée
+ * @param info pointeur sur l'information contenue dans le maillon i
+ * @return bool qui vaut true si le critère est respecté, false sinon
+ */
 bool positionImpaireOuValeurEntre1et4(size_t i, const Info *info);
 
+/**
+ * @brief Fonction qui permet de remplir une liste selon un critère choisi, i
+ * itère de 0 à taille-1 et insère un maillon de valeur i si i ne respecte pas le
+ * critère d'exclusion
+ * @param liste pointeur sur la liste doublement chaînée à remplir
+ * @param taille taille maximum que peut atteindre la liste
+ * @param critere pointeur sur une fonction décrivant le critère d'exclusion
+ */
 void remplirSelonCritere(Liste *liste, size_t taille, bool (*critere)(size_t
 																							 position,
 																							 const Info
@@ -63,13 +84,14 @@ void remplirListe(Liste *liste, size_t taille);
 
 int main(void) {
 
-	bool (*const fonctionsATester[])(void) = {testInitialiser, testVider,
+	bool (*const fonctionsATester[])(void) = {testInitialiser,
 															testInsererEnTete,
-															testInsererEnQueue, testLongueur,
-															testEstVide, testSupprimerEnTete,
+															testInsererEnQueue, testEstVide,
+															testLongueur, testSontEgales,
+															testVider,
+															testSupprimerEnTete,
 															testSupprimerEnQueue,
-															testSupprimerSelonCritere,
-															testSontEgales};
+															testSupprimerSelonCritere};
 	bool testsReussis = true;
 	for (size_t i = 0; i < sizeof(fonctionsATester) / sizeof(bool (*)(void)); i++) {
 		bool reussite = fonctionsATester[i]();
@@ -85,25 +107,12 @@ int main(void) {
 
 // FONCTIONS UTILISÉES DANS LES TESTS
 
-/// Fonction d'exemple utilisée comme critère pour tester supprimerSelonCritere.
-/// Elle teste si la position est impaire ou si la valeur contenue à cette
-/// position est entre 1 et 4
-///
-/// \param i: position du maillon dans une liste doublement chaînée
-/// \param info: pointeur sur l'information contenue dans le maillon i
-/// \return: bool qui vaut true si le critère est respecté, false sinon
 bool positionImpaireOuValeurEntre1et4(size_t i, const Info *info) {
 
 	return i % 2 == 1 || (*info > 1 && *info < 4);
 }
 
-/// Fonction qui permet de remplir une liste selon un critère choisi, i itère de 0 à
-// taille-1 et insère un maillon de valeur i si i ne respecte pas le critère
-// d'exclusion
-///
-/// \param liste: pointeur sur la liste doublement chaînée à remplir
-/// \param taille: taille maximum que peut atteindre la liste
-/// \param critere: pointeur sur une fonction décrivant le critère d'exclusion
+
 void remplirSelonCritere(Liste *liste, size_t taille,
 								 bool(*critere)(size_t position, const Info *info)) {
 	Info info;
@@ -114,11 +123,6 @@ void remplirSelonCritere(Liste *liste, size_t taille,
 	}
 }
 
-///Fonction qui permet de remplir une liste chaînée avec un nombre de maillons
-// choisi dont la valeur est égale à leur position dans la liste
-///
-/// \param liste: pointeur sur la liste doublement chaînée à remplir
-/// \param taille: taille choisie pour la liste
 void remplirListe(Liste *liste, size_t taille) {
 	Info info;
 	for (size_t i = 0; i < taille; ++i) {
@@ -171,8 +175,9 @@ bool testLongueur(void) {
 	printf("%s:\n", __func__);
 	Liste *liste = initialiser();
 	bool testReussi = true;
-	for (size_t i = 1; i < 3; i++) {
-		Info info = (int) i;
+	const size_t TAILLE = 3;
+	for (size_t i = 1; i < TAILLE; i++) {
+		Info info = (Info) i;
 		insererEnTete(liste, &info);
 		if (longueur(liste) != i) { // On vérifie que la longueur de la liste est
 			// bien égale au nombre d'éléments insérés
@@ -363,8 +368,6 @@ bool testVider(void) {
 	return testReussi;
 }
 
-// Fonction testant le bon fonctionnement de la fonction sontEgales() implémentée
-// dans listes_dynamique.c
 bool testSontEgales(void) {
 	printf("%s:\n", __func__);
 	bool testReussi = true;
