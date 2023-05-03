@@ -23,7 +23,7 @@
 
  Remarque(s)    : -
 
- Compilateur    : Mingw-w64 gcc 9.0
+ Compilateur    : Mingw-w64 gcc 12.2.0
  -----------------------------------------------------------------------------------
 */
 
@@ -63,12 +63,13 @@ void remplirListe(Liste *liste, size_t taille);
 
 int main(void) {
 
-	bool (* const fonctionsATester[])(void) = {testInitialiser, testVider,
-													 testInsererEnTete,
-													testInsererEnQueue, testLongueur,
-													testEstVide, testSupprimerEnTete,
-													testSupprimerEnQueue,
-													testSupprimerSelonCritere, testSontEgales};
+	bool (*const fonctionsATester[])(void) = {testInitialiser, testVider,
+															testInsererEnTete,
+															testInsererEnQueue, testLongueur,
+															testEstVide, testSupprimerEnTete,
+															testSupprimerEnQueue,
+															testSupprimerSelonCritere,
+															testSontEgales};
 	bool testsReussis = true;
 	for (size_t i = 0; i < sizeof(fonctionsATester) / sizeof(bool (*)(void)); i++) {
 		bool reussite = fonctionsATester[i]();
@@ -77,7 +78,7 @@ int main(void) {
 	}
 
 	printf("%s", testsReussis ? "Tous les tests passent." :
-	"Un ou plusieurs tests ne passent pas.");
+					 "Un ou plusieurs tests ne passent pas.");
 
 	return EXIT_SUCCESS;
 }
@@ -96,11 +97,13 @@ bool positionImpaireOuValeurEntre1et4(size_t i, const Info *info) {
 	return i % 2 == 1 || (*info > 1 && *info < 4);
 }
 
-/// Fonction qui permet de remplir une liste selon un critère choisi
+/// Fonction qui permet de remplir une liste selon un critère choisi, i itère de 0 à
+// taille-1 et insère un maillon de valeur i si i ne respecte pas le critère
+// d'exclusion
 ///
 /// \param liste: pointeur sur la liste doublement chaînée à remplir
-/// \param taille: taille choisie pour la liste
-/// \param critere: pointeur sur une fonction décrivant le critère à suivre
+/// \param taille: taille maximum que peut atteindre la liste
+/// \param critere: pointeur sur une fonction décrivant le critère d'exclusion
 void remplirSelonCritere(Liste *liste, size_t taille,
 								 bool(*critere)(size_t position, const Info *info)) {
 	Info info;
@@ -111,7 +114,8 @@ void remplirSelonCritere(Liste *liste, size_t taille,
 	}
 }
 
-///Fonction qui permet de remplir une liste chaînée avec un nombre de maillons choisi
+///Fonction qui permet de remplir une liste chaînée avec un nombre de maillons
+// choisi dont la valeur est égale à leur position dans la liste
 ///
 /// \param liste: pointeur sur la liste doublement chaînée à remplir
 /// \param taille: taille choisie pour la liste
@@ -248,7 +252,7 @@ bool testSupprimerEnTete(void) {
 				insererEnTete(liste, &infoPremierElement);
 				insererEnTete(liste, &infoDeuxiemeElement);
 				supprimerEnTete(liste, &infoRetour);
-            // On vérifie pour une liste de 2 éléments (cas général)
+				// On vérifie pour une liste de 2 éléments (cas général)
 				if (liste->tete->info != infoPremierElement) {
 					printf("\tErreur: le cas de la liste de taille 2 n'est pas traite "
 							 "correctement.\n");
@@ -314,8 +318,9 @@ bool testSupprimerSelonCritere(void) {
 	bool testReussi = true;
 	remplirListe(liste, 5);
 	remplirSelonCritere(listeAttendue, 5, (bool (*)(size_t, const Info *))
-      positionImpaireOuValeurEntre1et4);
-	supprimerSelonCritere(liste, (bool (*)(size_t, const Info *)) positionImpaireOuValeurEntre1et4);
+		positionImpaireOuValeurEntre1et4);
+	supprimerSelonCritere(liste, (bool (*)(size_t,
+														const Info *)) positionImpaireOuValeurEntre1et4);
 
 	if (!sontEgales(liste, listeAttendue)) {
 		printf("\tErreur: liste attendue et liste ne sont pas egales\n");

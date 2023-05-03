@@ -28,7 +28,7 @@
                   Le cas où le paramètre liste est passé en tant que pointeur NULL
                   n'est pas traité par ce programme.
 
- Compilateur    : Mingw-w64 gcc 9.0
+ Compilateur    : Mingw-w64 gcc 12.2.0
  -----------------------------------------------------------------------------------
 */
 
@@ -38,11 +38,11 @@
 
 Liste *initialiser(void) {
 	Liste *liste = (Liste *) malloc(sizeof(Liste));
-   // On vérifie que la mémoire est suffisante pour créer la nouvelle liste
+	// On vérifie que la mémoire est suffisante pour créer la nouvelle liste
 	if (liste == NULL) {
 		return NULL;
 	}
-   // La tête et la queue d'une liste vide sont des pointeurs nuls
+	// La tête et la queue d'une liste vide sont des pointeurs nuls
 	liste->queue = NULL;
 	liste->tete = NULL;
 
@@ -196,7 +196,7 @@ Status supprimerEnQueue(Liste *liste, Info *info) {
 }
 
 void supprimerSelonCritere(Liste *liste,
-                           bool (*critere)(size_t position, const Info *info)) {
+									bool (*critere)(size_t position, const Info *info)) {
 	Element *courant = liste->tete;
 	Element *suivant;
 	size_t indice = 0;
@@ -261,6 +261,6 @@ bool sontEgales(const Liste *liste1, const Liste *liste2) {
 		courant2 = courant2->suivant;
 	}
 	// Si on a parcouru tous les éléments et qu'on n'a encore rien retourné, cela veut dire
-   // qu'ils sont tous égaux, on retourne true
+	// qu'ils sont tous égaux, on retourne true
 	return true;
 }
