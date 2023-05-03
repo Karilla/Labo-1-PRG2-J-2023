@@ -32,22 +32,67 @@
 #include <stdlib.h>
 #include "listes_dynamiques.h"
 
+/**
+ * @brief Fonction testant le bon fonctionnement de la fonction initialiser()
+ * implémentée dans listes_dynamique.c
+ * @return true si le test est un succès, false sinon
+ */
 bool testInitialiser(void);
 
+/**
+ * @brief Fonction testant le bon fonctionnement de la fonction estVide()
+ * implémentée dans listes_dynamique.c
+ * @return true si le test est un succès, false sinon
+ */
 bool testEstVide(void);
 
+/**
+ * @brief Fonction testant le bon fonctionnement de la fonction longueur()
+ * implémentée dans listes_dynamique.c
+ * @return true si le test est un succès, false sinon
+ */
 bool testLongueur(void);
 
+/**
+ * @brief Fonction testant le bon fonctionnement de la fonction insererEnTete()
+ * implémentée dans listes_dynamique.c
+ * @return true si le test est un succès, false sinon
+ */
 bool testInsererEnTete(void);
 
+/**
+ * @brief Fonction testant le bon fonctionnement de la fonction insererEnQueue()
+ * implémentée dans listes_dynamique.c
+ * @return true si le test est un succès, false sinon
+ */
 bool testInsererEnQueue(void);
 
+/**
+ * @brief Fonction testant le bon fonctionnement de la fonction supprimerEnTete()
+ * implémentée dans listes_dynamique.c
+ * @return true si le test est un succès, false sinon
+ */
 bool testSupprimerEnTete(void);
 
+/**
+ * @brief Fonction testant le bon fonctionnement de la fonction supprimerEnQueue()
+ * implémentée dans listes_dynamique.c
+ * @return true si le test est un succès, false sinon
+ */
 bool testSupprimerEnQueue(void);
 
+/**
+ * @brief Fonction testant le bon fonctionnement de la fonction
+ * supprimerSelonCritere() implémentée dans listes_dynamique.c
+ * @return true si le test est un succès, false sinon
+ */
 bool testSupprimerSelonCritere(void);
 
+/**
+ * @brief Fonction testant le bon fonctionnement de la fonction vider()
+ * implémentée dans listes_dynamique.c
+ * @return true si le test est un succès, false sinon
+ */
 bool testVider(void);
 
 /**
@@ -80,6 +125,12 @@ void remplirSelonCritere(Liste *liste, size_t taille, bool (*critere)(size_t
 																							 const Info
 																							 *info));
 
+/**
+ * @brief: Fonction qui permet de remplir une liste chaînée avec un nombre de maillons
+ * choisi dont la valeur est égale à leur position dans la liste
+ * @param liste: pointeur sur la liste doublement chaînée à remplir
+ * @param taille: taille choisie pour la liste
+ */
 void remplirListe(Liste *liste, size_t taille);
 
 int main(void) {
@@ -123,6 +174,7 @@ void remplirSelonCritere(Liste *liste, size_t taille,
 	}
 }
 
+
 void remplirListe(Liste *liste, size_t taille) {
 	Info info;
 	for (size_t i = 0; i < taille; ++i) {
@@ -133,8 +185,6 @@ void remplirListe(Liste *liste, size_t taille) {
 
 // FONCTIONS DE TESTS
 
-// Fonction testant le bon fonctionnement de la fonction initialiser() implémentée
-// dans listes_dynamique.c
 bool testInitialiser(void) {
 	printf("%s:\n", __func__);
 
@@ -147,8 +197,6 @@ bool testInitialiser(void) {
 	return false;
 }
 
-// Fonction testant le bon fonctionnement de la fonction estVide() implémentée
-// dans listes_dynamique.c
 bool testEstVide(void) {
 	printf("%s:\n", __func__);
 	Liste *liste = initialiser();
@@ -169,8 +217,6 @@ bool testEstVide(void) {
 	return testReussi;
 }
 
-// Fonction testant le bon fonctionnement de la fonction longueur() implémentée
-// dans listes_dynamique.c
 bool testLongueur(void) {
 	printf("%s:\n", __func__);
 	Liste *liste = initialiser();
@@ -191,8 +237,6 @@ bool testLongueur(void) {
 	return testReussi;
 }
 
-// Fonction testant le bon fonctionnement de la fonction insererEnTete() implémentée
-// dans listes_dynamique.c
 bool testInsererEnTete(void) {
 	printf("%s:\n", __func__);
 	bool testReussi = true;
@@ -209,8 +253,6 @@ bool testInsererEnTete(void) {
 	return testReussi;
 }
 
-// Fonction testant le bon fonctionnement de la fonction insererEnQueue() implémentée
-// dans listes_dynamique.c
 bool testInsererEnQueue(void) {
 	printf("%s:\n", __func__);
 	bool testReussi = true;
@@ -227,8 +269,6 @@ bool testInsererEnQueue(void) {
 	return testReussi;
 }
 
-// Fonction testant le bon fonctionnement de la fonction supprimerEnTete() implémentée
-// dans listes_dynamique.c
 bool testSupprimerEnTete(void) {
 	printf("%s:\n", __func__);
 	Liste *liste = initialiser();
@@ -271,8 +311,6 @@ bool testSupprimerEnTete(void) {
 	return testReussi;
 }
 
-// Fonction testant le bon fonctionnement de la fonction supprimerEnQueue() implémentée
-// dans listes_dynamique.c
 bool testSupprimerEnQueue(void) {
 	printf("%s:\n", __func__);
 	Liste *liste = initialiser();
@@ -314,8 +352,6 @@ bool testSupprimerEnQueue(void) {
 	return testReussi;
 }
 
-// Fonction testant le bon fonctionnement de la fonction supprimerSelonCritere() implémentée
-// dans listes_dynamique.c
 bool testSupprimerSelonCritere(void) {
 	printf("%s:\n", __func__);
 	Liste *liste = initialiser();
@@ -342,8 +378,6 @@ bool testSupprimerSelonCritere(void) {
 	return testReussi;
 }
 
-// Fonction testant le bon fonctionnement de la fonction vider() implémentée
-// dans listes_dynamique.c
 bool testVider(void) {
 	printf("%s:\n", __func__);
 	bool testReussi = true;
